@@ -3,7 +3,7 @@
   "project_slug": "farofa",
   "domain": "farofabrasaeprosa.com.br",
   "client": "Farofa",
-  "environment": "development",
+  "environment": "production",
   "tracking": {
     "gtm_id": "GTM-XXXXXXX",
     "enabled": true
