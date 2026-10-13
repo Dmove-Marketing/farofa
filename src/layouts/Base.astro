@@ -92,9 +92,9 @@ const defaultJsonLd = {
     <meta property="og:locale" content="pt_BR" />
 
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/images/icone.png" />
-    <link rel="shortcut icon" href="/images/icone.png" />
-    <link rel="apple-touch-icon" href="/images/icone.png" />
+    <link rel="icon" type="image/webp" href={`${config.media.cdn_base}/photos/favicon.webp`} />
+    <link rel="shortcut icon" href={`${config.media.cdn_base}/photos/favicon.webp`} />
+    <link rel="apple-touch-icon" href={`${config.media.cdn_base}/photos/favicon.webp`} />
 
     <!-- GTM Head -->
     {trackingEnabled && gtmId && <GTMHead gtmId={gtmId} />}

@@ -11,7 +11,7 @@
   "whatsapp": {
     "phone": "551136419761",
     "display_name": "Farofa",
-    "avatar": "/images/whatsapp-avatar.jpg",
+    "avatar": "https://media.dmove.com.br/clients/farofa/photos/favicon.webp",
     "enabled": true
   },
   "forms": {

@@ -9,8 +9,6 @@ const webhook  = config.forms['lead-form'].webhooks[0];
 const cdn      = config.media.cdn_base + '/photos';
 const photo    = (name: string) => `${cdn}/${name}.webp`;
 const waPhone  = config.whatsapp.phone;
-const waMsg    = encodeURIComponent('Olá! Vim pela página de eventos corporativos e gostaria de um orçamento.');
-const waUrl    = `https://wa.me/${waPhone}?text=${waMsg}`;
 
 const title       = 'Eventos corporativos no Farofa | Vila Leopoldina, São Paulo';
 const description = 'Espaço para eventos corporativos na Vila Leopoldina (SP): até 250 pessoas, 1.200 m², ambientes interno e externo, churrasqueira de 40 metros e cozinha própria. Solicite orçamento.';
@@ -451,17 +449,9 @@ const autoMap: Record<string, string> = {
     </div>
   </footer>
 
-  <!-- WhatsApp flutuante (desktop) -->
-  <a class="whatsapp-flutuante" href={waUrl} target="_blank" rel="noopener" aria-label="Fale no WhatsApp">
-    <svg aria-hidden="true"><use href="#i-whatsapp"/></svg>
-  </a>
-
   <!-- Barra fixa (mobile) -->
   <div class="barra-mobile" id="barra-mobile">
-    <a class="btn btn-brasa" href="#contato">Pedir orçamento</a>
-    <a class="btn btn-whatsapp" href={waUrl} target="_blank" rel="noopener" aria-label="Fale no WhatsApp">
-      <svg aria-hidden="true"><use href="#i-whatsapp"/></svg>
-    </a>
+    <a class="btn btn-brasa btn-brasa-full" href="#contato">Pedir orçamento</a>
   </div>
 
 </Base>
@@ -490,8 +480,6 @@ const autoMap: Record<string, string> = {
   --cor-linha:        rgba(0, 0, 0, 0.16);
   --cor-linha-clara:  rgba(244, 238, 210, 0.22);
   --cor-campo:        #fffcef;
-  --cor-whatsapp:     #25d366;
-
   --fonte-titulo:    "TAN Harmoni", "Playfair Display", Georgia, serif;
   --fonte-texto:     "Quicksand", "Trebuchet MS", system-ui, sans-serif;
   --fonte-manuscrita:"Architects Daughter", "Comic Neue", "Segoe Print", cursive;
@@ -788,17 +776,7 @@ h1, h2, h3 { font-family: var(--fonte-titulo); font-weight: 400; margin: 0; text
 .rodape-logo img { width: 150px; height: auto; }
 .rodape-base { margin-top: 36px; padding-top: 22px; border-top: 1px solid var(--cor-linha-clara); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 13px; }
 
-/* ── WhatsApp flutuante + barra mobile ─────────────────────── */
-.whatsapp-flutuante {
-  position: fixed; right: 24px; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); z-index: 60;
-  width: 62px; height: 62px; border-radius: 50%;
-  background: var(--cor-whatsapp); color: #fff;
-  display: grid; place-items: center;
-  box-shadow: 0 10px 28px -6px rgba(0,0,0,.45);
-  transition: transform .2s ease;
-}
-.whatsapp-flutuante:hover { transform: scale(1.06); }
-.whatsapp-flutuante svg { width: 32px; height: 32px; }
+/* ── Barra mobile ───────────────────────────────────────────── */
 .barra-mobile {
   position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
   display: none; gap: 10px;
@@ -809,8 +787,7 @@ h1, h2, h3 { font-family: var(--fonte-titulo); font-weight: 400; margin: 0; text
 }
 .barra-mobile.visivel { transform: translateY(0); }
 .barra-mobile .btn { flex: 1; padding: 15px 16px; }
-.barra-mobile .btn-whatsapp { flex: 0 0 54px; padding: 0; background: var(--cor-whatsapp); color: #fff; border-radius: var(--raio); }
-.barra-mobile .btn-whatsapp svg { width: 26px; height: 26px; }
+.barra-mobile .btn-brasa-full { text-align: center; }
 
 /* ── Responsivo ────────────────────────────────────────────── */
 @media (max-width: 1080px) {
@@ -880,7 +857,6 @@ h1, h2, h3 { font-family: var(--fonte-titulo); font-weight: 400; margin: 0; text
   .mapa { aspect-ratio: 4 / 3; }
   .rodape { padding-bottom: calc(110px + env(safe-area-inset-bottom, 0px)); }
   .rodape-base { flex-direction: column; align-items: center; text-align: center; gap: 6px; }
-  .whatsapp-flutuante { display: none; }
   .barra-mobile { display: flex; }
   main .titulo-secao, main .texto-secao, .hero-texto, .experiencia-texto, .gastronomia-topo,
   .clientes-texto, .contato-texto, .form-cartao { text-align: center; }
