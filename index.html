@@ -1,0 +1,1151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Eventos corporativos no Farofa | Vila Leopoldina, São Paulo</title>
+<meta name="description" content="Espaço para eventos corporativos na Vila Leopoldina (SP): até 250 pessoas, 1.200 m², ambientes interno e externo, churrasqueira de 40 metros e cozinha própria. Solicite orçamento.">
+<link rel="icon" type="image/png" href="imagens/favicon.png">
+<link rel="apple-touch-icon" href="imagens/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Quicksand:wght@400;500;600;700&display=swap">
+<script>
+  /* Liga as animações de rolagem (fade). Sem JS ou com "reduzir movimento", tudo aparece normalmente. */
+  if ('IntersectionObserver' in window && !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+    document.documentElement.classList.add('js-animar');
+  }
+</script>
+<link rel="preload" href="fontes/tan-harmoni.woff2" as="font" type="font/woff2" crossorigin>
+<style>
+/* Fonte de título do manual da marca (arquivo entregue em fontes/) */
+@font-face {
+  font-family: "TAN Harmoni";
+  src: url("fontes/tan-harmoni.woff2") format("woff2"), url("fontes/tan-harmoni.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Layout: galpão em blocos alternados — creme (papel), brasa (terracota da marca) e preto (noite no pátio) */
+:root {
+  /* Cores do manual Farofa */
+  --cor-brasa: #902601;         /* cor principal (logo) */
+  --cor-brasa-escura: #6d1c00;  /* hover dos botões */
+  --cor-caramelo: #94491e;      /* tom secundário do manual */
+  --cor-creme: #f4eed2;         /* fundo claro e texto sobre escuro */
+  --cor-creme-2: #ebe2bf;       /* fundo claro alternativo */
+  --cor-preto: #000000;
+  --cor-texto-suave: rgba(0, 0, 0, 0.72);
+  --cor-creme-suave: rgba(244, 238, 210, 0.78);
+  --cor-linha: rgba(0, 0, 0, 0.16);
+  --cor-linha-clara: rgba(244, 238, 210, 0.22);
+  --cor-campo: #fffcef;
+  --cor-whatsapp: #25d366;
+
+  /* Tipografia do manual Farofa */
+  --fonte-titulo: "TAN Harmoni", "Playfair Display", Georgia, serif;
+  --fonte-texto: "Quicksand", "Trebuchet MS", system-ui, sans-serif;
+  --fonte-manuscrita: "Architects Daughter", "Comic Neue", "Segoe Print", cursive;
+
+  /* Medidas */
+  --largura-max: 1240px;
+  --gutter: clamp(20px, 4vw, 48px);
+  --espaco-secao: clamp(72px, 9vw, 120px);
+  --raio: 6px;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--cor-creme);
+  color: var(--cor-preto);
+  font-family: var(--fonte-texto);
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1.36;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+button { font: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--cor-caramelo); outline-offset: 3px; }
+.visualmente-oculto { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.wrap { width: 100%; max-width: var(--largura-max); margin: 0 auto; padding-left: var(--gutter); padding-right: var(--gutter); }
+.secao { padding-block: var(--espaco-secao); }
+
+/* Títulos */
+h1, h2, h3 { font-family: var(--fonte-titulo); font-weight: 400; margin: 0; text-wrap: balance; }
+.titulo-secao {
+  font-size: clamp(36px, 4.6vw, 64px);
+  line-height: 0.9;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+.texto-secao { margin: 0; max-width: 56ch; font-size: clamp(16px, 1.25vw, 18px); color: var(--cor-texto-suave); }
+
+/* Botões */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  border: 0; border-radius: var(--raio);
+  padding: 16px 28px;
+  font-family: var(--fonte-texto); font-weight: 700; font-size: 16px; line-height: 1.02;
+  text-decoration: none; text-align: center;
+  transition: background-color .2s ease, color .2s ease, transform .2s ease;
+}
+.btn:active { transform: translateY(1px); }
+.btn-brasa { background: var(--cor-brasa); color: var(--cor-creme); }
+.btn-brasa:hover { background: var(--cor-brasa-escura); }
+.btn-creme { background: var(--cor-creme); color: var(--cor-brasa); }
+.btn-creme:hover { background: #fff8dc; }
+.btn-contorno { background: transparent; color: inherit; box-shadow: inset 0 0 0 1.5px currentColor; }
+.btn-contorno:hover { background: rgba(0,0,0,.06); }
+.btn svg { width: 20px; height: 20px; flex: none; }
+
+/* ============ CABEÇALHO ============ */
+.cabecalho {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  padding-top: env(safe-area-inset-top, 0px);
+  transition: background-color .3s ease, box-shadow .3s ease;
+}
+.cabecalho .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 84px; transition: height .3s ease; }
+.cabecalho.solido { background: var(--cor-preto); box-shadow: 0 1px 0 var(--cor-linha-clara); }
+.cabecalho.solido .wrap { height: 68px; }
+.cabecalho .logo img { width: 132px; height: auto; transition: width .3s ease; }
+.cabecalho.solido .logo img { width: 112px; }
+.cabecalho-acoes { display: flex; align-items: center; gap: 22px; }
+.cabecalho .btn { padding: 12px 20px; font-size: 15px; }
+
+/* ============ HERO ============ */
+/* A foto fica dentro do .hero, mas no desktop cobre a primeira dobra inteira (texto + formulário) */
+.primeira-dobra {
+  position: relative; isolation: isolate;
+  color: var(--cor-creme);
+  padding-top: calc(130px + env(safe-area-inset-top, 0px));
+  padding-bottom: clamp(56px, 7vw, 96px);
+  overflow: hidden;
+}
+.hero, .form-topo { min-width: 0; }
+.hero-fundo { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
+.hero-fundo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+.hero-fundo::after {
+  content: ""; position: absolute; inset: 0;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,.86) 0%, rgba(0,0,0,.66) 46%, rgba(0,0,0,.30) 100%),
+    linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,.25) 100%);
+}
+.hero-grade {
+  display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr);
+  gap: clamp(32px, 5vw, 80px); align-items: center;
+}
+.hero-texto { min-width: 0; }
+.local {
+  margin: 0 0 22px;
+  font-family: var(--fonte-texto); font-weight: 600; font-size: clamp(16px, 1.3vw, 19px); line-height: 1.2;
+  letter-spacing: .02em;
+}
+.hero h1 {
+  font-size: clamp(54px, 6.6vw, 98px);
+  line-height: 0.88;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
+}
+.hero-sub {
+  margin: 26px 0 0; max-width: 34ch;
+  font-size: clamp(17px, 1.45vw, 21px); line-height: 1.275;
+  color: var(--cor-creme-suave);
+}
+
+/* ============ FORMULÁRIO (hero e contato) ============ */
+.form-cartao {
+  background: var(--cor-creme); color: var(--cor-preto);
+  border-radius: 10px;
+  padding: clamp(24px, 2.6vw, 36px);
+  box-shadow: 0 30px 60px -20px rgba(0,0,0,.55);
+  min-width: 0;
+}
+.form-titulo {
+  font-family: var(--fonte-titulo); font-size: clamp(30px, 2.6vw, 38px); line-height: 0.85;
+  margin: 0 0 20px; color: var(--cor-brasa);
+}
+.form-orcamento .campos { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; align-items: end; }
+.campo { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.campo label { font-size: 14px; font-weight: 700; line-height: 1.02; }
+.campo input {
+  width: 100%; min-width: 0;
+  font-family: var(--fonte-texto); font-size: 16px; font-weight: 600; color: var(--cor-preto);
+  background: var(--cor-campo);
+  border: 1.5px solid rgba(0,0,0,.22); border-radius: var(--raio);
+  padding: 13px 14px;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.campo input::placeholder { color: rgba(0,0,0,.42); font-weight: 500; }
+.campo input:focus { outline: none; border-color: var(--cor-brasa); box-shadow: 0 0 0 3px rgba(144,38,1,.18); }
+.form-orcamento .btn { width: 100%; padding: 15px 20px; }
+.aviso-privacidade { margin: 14px 0 0; font-size: 13px; line-height: 1.232; color: var(--cor-texto-suave); }
+
+/* ============ AUTORIDADE ============ */
+.autoridade { background: var(--cor-brasa); color: var(--cor-creme); }
+.autoridade ul {
+  list-style: none; margin: 0; padding: 0;
+  display: flex;
+}
+.autoridade li {
+  flex: 1 1 auto;
+  display: flex; align-items: center; justify-content: center; gap: 16px;
+  padding: 34px 28px; text-align: left;
+}
+.autoridade .unidade { text-transform: none; }
+.autoridade li:not(:last-child) strong { white-space: nowrap; }
+.contador { display: inline-block; text-align: right; font-variant-numeric: tabular-nums; }
+/* Animação de entrada: só é ligada pelo script (sem JS, a faixa aparece normalmente) */
+.autoridade.animar li { opacity: 0; transform: translateY(16px); }
+.autoridade.animar svg { transform: scale(.4); opacity: 0; }
+.autoridade.animado li { opacity: 1; transform: none; transition: opacity .7s ease, transform .7s cubic-bezier(.2, .7, .2, 1); }
+.autoridade.animado svg { opacity: .9; transform: none; transition: opacity .5s ease, transform .6s cubic-bezier(.34, 1.56, .64, 1); }
+.autoridade.animado li:nth-child(2), .autoridade.animado li:nth-child(2) svg { transition-delay: .18s; }
+.autoridade.animado li:nth-child(3), .autoridade.animado li:nth-child(3) svg { transition-delay: .36s; }
+.autoridade li + li { border-left: 1px solid var(--cor-linha-clara); }
+.autoridade svg { width: 34px; height: 34px; flex: none; opacity: .9; }
+.autoridade strong {
+  font-family: var(--fonte-titulo); font-weight: 400;
+  font-size: clamp(24px, 2.4vw, 34px); line-height: 0.892; text-transform: uppercase; letter-spacing: .01em;
+}
+
+/* ============ EXPERIÊNCIA 360° ============ */
+/* Duas colunas: texto (título quebrado em 4 linhas) à esquerda, foto à direita com o selo 360° no canto */
+.experiencia-grade {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  gap: clamp(40px, 6vw, 96px); align-items: center;
+}
+.experiencia-texto { min-width: 0; }
+.experiencia-texto h2 span { display: block; white-space: nowrap; }
+.experiencia-texto .texto-secao { margin-top: 26px; max-width: 46ch; }
+.experiencia-foto { position: relative; min-width: 0; }
+.experiencia-foto img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--raio); }
+.selo-360 {
+  --tamanho-selo: clamp(128px, 12vw, 168px);
+  position: absolute; right: calc(var(--tamanho-selo) / -4); top: calc(var(--tamanho-selo) / -4);
+  width: var(--tamanho-selo); aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--cor-brasa); color: var(--cor-creme);
+  display: grid; place-items: center;
+  box-shadow: 0 0 0 6px var(--cor-creme);
+}
+.selo-360 svg.anel { position: absolute; inset: 0; width: 100%; height: 100%; animation: girar 36s linear infinite; }
+.selo-360 .numero { font-family: var(--fonte-titulo); font-size: clamp(34px, 3.2vw, 46px); line-height: 0.85; }
+@keyframes girar { to { transform: rotate(360deg); } }
+
+/* ============ EVENTOS ============ */
+.eventos { background: var(--cor-creme-2); }
+.eventos .titulo-secao { text-align: center; }
+.eventos .titulo-secao span { display: block; }
+.lista-eventos {
+  list-style: none; margin: clamp(40px, 5vw, 64px) 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1.5px solid var(--cor-preto);
+}
+.lista-eventos li {
+  display: flex; align-items: center; gap: 20px;
+  padding: 30px 24px 30px 0;
+  border-bottom: 1px solid var(--cor-linha);
+  font-family: var(--fonte-texto); font-weight: 700; font-size: clamp(17px, 1.35vw, 20px); line-height: 1.2;
+}
+.lista-eventos li:not(:nth-child(3n+1)) { padding-left: 24px; border-left: 1px solid var(--cor-linha); }
+.icone-evento {
+  width: 64px; height: 64px; flex: none;
+  border-radius: 50%; background: var(--cor-brasa); color: var(--cor-creme);
+  display: grid; place-items: center;
+}
+.icone-evento svg { width: 32px; height: 32px; }
+
+/* ============ DIFERENCIAIS ============ */
+.diferenciais { background: var(--cor-preto); color: var(--cor-creme); }
+.diferenciais .titulo-secao { text-align: center; }
+.diferenciais .titulo-secao span { display: block; }
+.lista-diferenciais {
+  list-style: none; margin: clamp(40px, 5vw, 64px) 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 2.5vw, 36px);
+}
+.lista-diferenciais li { min-width: 0; text-align: center; }
+.diferencial-foto { border-radius: var(--raio); overflow: hidden; }
+.lista-diferenciais img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; transition: transform .7s cubic-bezier(.2, .7, .2, 1), filter .7s ease; }
+@media (hover: hover) {
+  .lista-diferenciais li:hover img { transform: scale(1.07); filter: brightness(1.08) saturate(1.08); }
+}
+.lista-diferenciais h3 { margin: 24px 0 10px; font-size: clamp(28px, 2.4vw, 34px); line-height: 0.892; color: var(--cor-creme); }
+.lista-diferenciais p { margin: 0 auto; font-size: 16px; color: var(--cor-creme-suave); max-width: 38ch; }
+
+/* ============ GASTRONOMIA ============ */
+.gastronomia { background: var(--cor-brasa); color: var(--cor-creme); overflow: hidden; }
+.gastronomia-topo {
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(24px, 5vw, 80px); align-items: end;
+}
+.gastronomia .texto-secao { color: var(--cor-creme-suave); }
+.trilho-wrap { margin-top: clamp(36px, 4.5vw, 56px); }
+/* Carrossel infinito: o script duplica as fotos e liga a animação; o mouse em cima pausa */
+.trilho { overflow-x: auto; scrollbar-width: none; outline-offset: -3px; }
+.trilho::-webkit-scrollbar { display: none; }
+.trilho-faixa { display: flex; gap: 16px; width: max-content; padding-right: 16px; }
+.trilho.infinito { overflow: hidden; }
+.trilho.infinito .trilho-faixa { animation: deslizar var(--duracao-trilho, 70s) linear infinite; }
+.trilho.infinito:hover .trilho-faixa,
+.trilho.infinito:focus-within .trilho-faixa,
+.trilho.infinito.pausado .trilho-faixa { animation-play-state: paused; }
+@keyframes deslizar { to { transform: translateX(-50%); } }
+.trilho figure { margin: 0; flex: 0 0 clamp(240px, 24vw, 320px); }
+.trilho img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--raio); }
+
+/* ============ CLIENTES ============ */
+/* Logos à esquerda (slides arrastáveis), texto à direita */
+.clientes-grade {
+  display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: clamp(40px, 6vw, 96px); align-items: center;
+}
+.clientes-texto { min-width: 0; grid-column: 2; grid-row: 1; }
+.clientes .texto-secao { margin-top: 24px; }
+.logos-carrossel { min-width: 0; grid-column: 1; grid-row: 1; }
+.logos-slider {
+  overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+  cursor: grab; user-select: none; -webkit-user-select: none;
+}
+.logos-slider::-webkit-scrollbar { display: none; }
+.logos-slider.arrastando { cursor: grabbing; scroll-snap-type: none; }
+.logos { list-style: none; margin: 0; padding: 0; display: flex; }
+.logos li {
+  flex: 0 0 calc(100% / 2.3);
+  display: grid; place-items: center;
+  height: clamp(180px, 15vw, 220px); padding: 12px;
+  scroll-snap-align: start;
+}
+.logos img { width: auto; height: 104px; max-width: 100%; object-fit: contain; opacity: .85; pointer-events: none; -webkit-user-drag: none; }
+.logos img.logo-natura { height: 150px; }
+.logos img.logo-nuvemshop { height: 132px; }
+.logos img.logo-siemens { height: 44px; }
+.logos img.logo-quata, .logos img.logo-swift { height: 96px; }
+.logos-controles { display: flex; justify-content: center; gap: 10px; margin-top: 18px; }
+.seta {
+  width: 48px; height: 48px; border-radius: 50%;
+  border: 1.5px solid var(--cor-brasa); background: transparent; color: var(--cor-brasa);
+  display: grid; place-items: center;
+  transition: background-color .2s ease, color .2s ease;
+}
+.seta:hover { background: var(--cor-brasa); color: var(--cor-creme); }
+.seta svg { width: 20px; height: 20px; }
+
+/* ============ GALERIA ============ */
+.galeria { background: var(--cor-preto); color: var(--cor-creme); }
+.galeria .titulo-secao { text-align: center; }
+/* Mosaico: 4 colunas com linhas quadradas; "grande" ocupa 2x2 e "alto" ocupa 1x2 */
+.galeria-grade {
+  --gap-mosaico: 14px;
+  --linha-mosaico: calc((min(100vw, var(--largura-max)) - 2 * var(--gutter) - 3 * var(--gap-mosaico)) / 4);
+  margin-top: clamp(40px, 5vw, 64px);
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: var(--linha-mosaico); grid-auto-flow: dense; gap: var(--gap-mosaico);
+}
+.galeria-item {
+  display: block; width: 100%; height: 100%; padding: 0; border: 0; background: #1a1a1a;
+  border-radius: var(--raio); overflow: hidden;
+}
+.galeria-item.grande { grid-column: span 2; grid-row: span 2; }
+.galeria-item.alto { grid-row: span 2; }
+.galeria-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.galeria-item:hover img { transform: scale(1.04); }
+
+.lightbox {
+  border: 0; padding: 0; margin: 0; width: 100vw; height: 100vh; max-width: none; max-height: none;
+  background: rgba(0,0,0,.94); color: var(--cor-creme);
+}
+.lightbox[open] { display: grid; place-items: center; }
+.lightbox::backdrop { background: rgba(0,0,0,.94); }
+.lightbox img { max-width: min(92vw, 1400px); max-height: 84vh; width: auto; height: auto; border-radius: 4px; }
+.lightbox-fechar, .lightbox-ant, .lightbox-prox {
+  position: fixed; border: 0; background: rgba(244,238,210,.12); color: var(--cor-creme);
+  width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center;
+}
+.lightbox-fechar { top: calc(16px + env(safe-area-inset-top, 0px)); right: 16px; }
+.lightbox-ant { left: 16px; top: 50%; transform: translateY(-50%); }
+.lightbox-prox { right: 16px; top: 50%; transform: translateY(-50%); }
+.lightbox button:hover { background: rgba(244,238,210,.24); }
+.lightbox svg { width: 24px; height: 24px; }
+.lightbox-contador { pointer-events: none; position: fixed; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); left: 0; right: 0; text-align: center; font-size: 14px; color: var(--cor-creme-suave); margin: 0; }
+
+/* ============ LOCALIZAÇÃO ============ */
+/* Tudo centralizado: título, endereço, mapa na largura toda e botão embaixo do mapa */
+.localizacao-grade {
+  display: flex; flex-direction: column; align-items: center; text-align: center;
+}
+.localizacao .titulo-secao { max-width: 24ch; }
+.endereco {
+  display: flex; gap: 12px; align-items: flex-start; justify-content: center; text-align: left;
+  margin: 26px 0 0; font-style: normal; font-size: clamp(17px, 1.4vw, 20px); font-weight: 600; line-height: 1.275;
+}
+.endereco svg { width: 26px; height: 26px; color: var(--cor-brasa); flex: none; margin-top: 2px; }
+.mapa { margin-top: clamp(32px, 4vw, 48px); }
+.localizacao-botoes { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 28px; }
+.mapa {
+  min-width: 0; width: 100%;
+  height: clamp(360px, 34vw, 480px);
+  border-radius: var(--raio); overflow: hidden;
+  background: var(--cor-creme-2);
+  box-shadow: 0 0 0 1px var(--cor-linha), 0 24px 48px -24px rgba(0,0,0,.35);
+}
+.mapa iframe { display: block; width: 100%; height: 100%; border: 0; }
+
+/* ============ CONTATO ============ */
+.contato { background: var(--cor-brasa); color: var(--cor-creme); }
+.contato-grade {
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  gap: clamp(40px, 6vw, 96px); align-items: center;
+}
+.contato-texto { min-width: 0; }
+.contato .texto-secao { margin-top: 24px; color: var(--cor-creme-suave); }
+
+/* ============ RODAPÉ ============ */
+.rodape { background: var(--cor-preto); color: var(--cor-creme-suave); padding-block: 56px 40px; font-size: 14px; }
+.rodape-grade { display: flex; justify-content: center; }
+.rodape-logo img { width: 150px; height: auto; }
+.rodape-base { margin-top: 36px; padding-top: 22px; border-top: 1px solid var(--cor-linha-clara); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 13px; }
+
+/* ============ WHATSAPP FLUTUANTE + BARRA MOBILE ============ */
+.whatsapp-flutuante {
+  position: fixed; right: 24px; bottom: calc(24px + env(safe-area-inset-bottom, 0px)); z-index: 60;
+  width: 62px; height: 62px; border-radius: 50%;
+  background: var(--cor-whatsapp); color: #fff;
+  display: grid; place-items: center;
+  box-shadow: 0 10px 28px -6px rgba(0,0,0,.45);
+  transition: transform .2s ease;
+}
+.whatsapp-flutuante:hover { transform: scale(1.06); }
+.whatsapp-flutuante svg { width: 32px; height: 32px; }
+
+.barra-mobile {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
+  display: none; gap: 10px;
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+  background: var(--cor-preto);
+  box-shadow: 0 -8px 24px -8px rgba(0,0,0,.5);
+  transform: translateY(110%); transition: transform .3s ease;
+}
+.barra-mobile.visivel { transform: translateY(0); }
+.barra-mobile .btn { flex: 1; padding: 15px 16px; }
+.barra-mobile .btn-whatsapp { flex: 0 0 54px; padding: 0; background: var(--cor-whatsapp); color: #fff; }
+.barra-mobile .btn-whatsapp svg { width: 26px; height: 26px; }
+
+/* ============ RESPONSIVO ============ */
+@media (max-width: 1080px) {
+  .hero-grade { grid-template-columns: minmax(0, 1fr); }
+  .hero-texto { max-width: 680px; }
+  .form-cartao { max-width: 680px; }
+  .lista-eventos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lista-eventos li:not(:nth-child(3n+1)) { padding-left: 0; border-left: 0; }
+  .lista-eventos li:nth-child(even) { padding-left: 24px; border-left: 1px solid var(--cor-linha); }
+  .experiencia-grade, .clientes-grade, .contato-grade { grid-template-columns: minmax(0, 1fr); }
+  .clientes-texto, .logos-carrossel { grid-column: auto; grid-row: auto; }
+  .experiencia-foto img { aspect-ratio: 16 / 9; }
+  .selo-360 { right: 16px; }
+  .autoridade li { padding: 28px 16px; gap: 12px; }
+  .autoridade svg { width: 28px; height: 28px; }
+  .mapa { height: auto; aspect-ratio: 16 / 10; }
+}
+
+@media (max-width: 760px) {
+  body { font-size: 16px; }
+  .cabecalho .wrap { height: 68px; }
+  .cabecalho .logo img, .cabecalho.solido .logo img { width: 104px; }
+  .cabecalho-acoes { display: none; }
+  /* Mobile: hero só com a foto e o texto; formulário em seção própria, logo abaixo */
+  .primeira-dobra { padding: 0; }
+  .hero-grade { display: block; }
+  .hero {
+    position: relative; isolation: isolate;
+    margin-inline: calc(-1 * var(--gutter)); padding-inline: var(--gutter);
+    padding-top: calc(112px + env(safe-area-inset-top, 0px)); padding-bottom: 64px;
+  }
+  .hero-fundo::after {
+    background: linear-gradient(180deg, rgba(0,0,0,.72) 0%, rgba(0,0,0,.6) 45%, rgba(0,0,0,.82) 100%);
+  }
+  .hero-fundo img { object-position: 38% 50%; }
+  .form-topo {
+    margin-inline: calc(-1 * var(--gutter)); padding: 48px var(--gutter) 56px;
+    background: var(--cor-creme); color: var(--cor-preto);
+  }
+  .form-topo .form-cartao { background: none; box-shadow: none; padding: 0; border-radius: 0; max-width: none; }
+  .form-topo .form-titulo { font-size: 40px; margin-bottom: 24px; }
+
+  .form-orcamento .campos { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+
+  .autoridade ul { flex-direction: column; padding-block: 8px; }
+  .autoridade li { justify-content: flex-start; padding: 18px 4px; }
+  .autoridade li + li { border-left: 0; border-top: 1px solid var(--cor-linha-clara); }
+
+  .experiencia-foto img { aspect-ratio: 4 / 3; }
+  .selo-360 { --tamanho-selo: 112px; right: 12px; top: -22px; }
+
+  .eventos .titulo-secao span, .diferenciais .titulo-secao span { display: inline; }
+  .lista-eventos li { flex-direction: column; align-items: flex-start; gap: 14px; padding: 24px 16px 24px 0; font-size: 16px; }
+  .lista-eventos li:nth-child(even) { padding-left: 16px; }
+  .icone-evento { width: 54px; height: 54px; }
+  .icone-evento svg { width: 28px; height: 28px; }
+
+  .lista-diferenciais { grid-template-columns: minmax(0, 1fr); gap: 44px; }
+  .lista-diferenciais img { aspect-ratio: 4 / 3; }
+  .lista-diferenciais h3 { margin-top: 18px; }
+
+  .gastronomia-topo { grid-template-columns: minmax(0, 1fr); }
+  .trilho figure { flex-basis: 70vw; }
+  .trilho-faixa { gap: 10px; padding-right: 10px; }
+  .trilho { --duracao-trilho: 50s; }
+
+  .logos li { flex-basis: calc(100% / 1.6); height: 160px; padding: 10px; }
+  .logos img { height: 76px; }
+  .logos img.logo-natura { height: 108px; }
+  .logos img.logo-nuvemshop { height: 94px; }
+  .logos img.logo-siemens { height: 32px; }
+  .logos img.logo-quata, .logos img.logo-swift { height: 68px; }
+
+  .galeria-grade {
+    --gap-mosaico: 10px;
+    --linha-mosaico: calc((100vw - 2 * var(--gutter) - var(--gap-mosaico)) / 2);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .galeria-item.grande { grid-row: span 1; }
+  .lightbox-ant, .lightbox-prox { top: auto; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); transform: none; }
+
+  .mapa { aspect-ratio: 4 / 3; }
+
+  .rodape { padding-bottom: calc(110px + env(safe-area-inset-bottom, 0px)); }
+  .rodape-base { flex-direction: column; align-items: center; text-align: center; gap: 6px; }
+
+  .whatsapp-flutuante { display: none; }
+  .barra-mobile { display: flex; }
+
+  /* Mobile: tudo centralizado */
+  main .titulo-secao, main .texto-secao, .hero-texto, .experiencia-texto, .gastronomia-topo,
+  .clientes-texto, .contato-texto, .form-cartao { text-align: center; }
+  main .texto-secao, .hero-sub { margin-inline: auto; }
+  .hero-texto { margin-inline: auto; }
+  .campo label { text-align: center; }
+  .campo input { text-align: center; }
+  .autoridade li { justify-content: center; text-align: center; }
+  .lista-eventos li { align-items: center; text-align: center; padding-inline: 12px; }
+  .lista-eventos li:nth-child(even) { padding-left: 12px; }
+  .endereco { flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+}
+
+@media (max-width: 420px) {
+  .lista-eventos li { font-size: 15px; }
+}
+
+/* ============ ANIMAÇÕES DE ROLAGEM (fade) ============ */
+.js-animar [data-revelar] {
+  opacity: 0;
+  transform: translate3d(0, 34px, 0);
+  transition: opacity .9s ease, transform 1s cubic-bezier(.2, .7, .2, 1);
+  transition-delay: var(--atraso, 0ms);
+}
+.js-animar [data-revelar="esquerda"] { transform: translate3d(-48px, 0, 0); }
+.js-animar [data-revelar="direita"] { transform: translate3d(48px, 0, 0); }
+.js-animar [data-revelar="zoom"] { transform: scale(.94); }
+.js-animar [data-revelar].visivel { opacity: 1; transform: none; }
+.hero-fundo img { will-change: transform; }
+@media (max-width: 760px) {
+  .js-animar [data-revelar="esquerda"], .js-animar [data-revelar="direita"] { transform: translate3d(0, 34px, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .trilho.infinito { overflow-x: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- Ícones reaproveitados -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="i-whatsapp" viewBox="0 0 24 24"><path fill="currentColor" d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.46-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.42-.08-.12-.27-.2-.57-.34m-5.42 7.4h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.88 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41z"/></symbol>
+    <symbol id="i-pessoas" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7.5" r="2.6"/><path d="M7.5 19.5V18a4.5 4.5 0 0 1 9 0v1.5"/><circle cx="5.5" cy="10" r="2"/><path d="M2 19.5v-1a3.5 3.5 0 0 1 4.6-3.3"/><circle cx="18.5" cy="10" r="2"/><path d="M22 19.5v-1a3.5 3.5 0 0 0-4.6-3.3"/></symbol>
+  </defs>
+</svg>
+
+<header class="cabecalho" id="cabecalho">
+  <div class="wrap">
+    <a class="logo" href="#topo" aria-label="Farofa, brasa e prosa — início">
+      <img src="imagens/logo-farofa-creme.svg" alt="Farofa — brasa &amp; prosa" width="894" height="290">
+    </a>
+    <div class="cabecalho-acoes">
+      <a class="btn btn-brasa" href="#contato">Solicite orçamento</a>
+    </div>
+  </div>
+</header>
+
+<main>
+
+  <!-- ============ PRIMEIRA DOBRA: HERO + FORMULÁRIO ============ -->
+  <!-- Desktop: formulário ao lado do título, sobre a foto. Mobile: o formulário vira uma seção própria logo abaixo do hero. -->
+  <div class="primeira-dobra">
+    <div class="wrap hero-grade">
+      <section class="hero" id="topo">
+        <div class="hero-fundo">
+          <img src="imagens/hero-galpao-farofa.jpg" alt="Galpão do Farofa com mesas de madeira, telões e bar ao fundo" width="1920" height="1280" fetchpriority="high">
+        </div>
+        <div class="hero-texto">
+          <p class="local">Vila Leopoldina • São Paulo</p>
+          <h1>Eventos corporativos fora do óbvio</h1>
+          <p class="hero-sub">Um espaço para reunir o time com brasa, prosa e menos formalidade</p>
+        </div>
+      </section>
+
+      <section class="form-topo" id="orcamento" aria-label="Solicite orçamento">
+        <div class="form-cartao">
+          <p class="form-titulo">Solicite orçamento</p>
+          <form class="form-orcamento" id="form-orcamento-topo" method="post">
+            <div class="campos">
+              <div class="campo">
+                <label for="topo-nome">Nome</label>
+                <input id="topo-nome" name="nome" type="text" autocomplete="name" required>
+              </div>
+              <div class="campo">
+                <label for="topo-telefone">Telefone</label>
+                <input id="topo-telefone" name="telefone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(11) 99999-9999" required>
+              </div>
+              <div class="campo">
+                <label for="topo-email">E-mail</label>
+                <input id="topo-email" name="email" type="email" autocomplete="email" required>
+              </div>
+              <div class="campo">
+                <label for="topo-empresa">Empresa</label>
+                <input id="topo-empresa" name="empresa" type="text" autocomplete="organization" required>
+              </div>
+              <div class="campo">
+                <label for="topo-tipo">Tipo de evento</label>
+                <input id="topo-tipo" name="tipo_evento" type="text" placeholder="Ex.: confraternização" required>
+              </div>
+              <div class="campo campo-data">
+                <label for="topo-data">Data do evento</label>
+                <input id="topo-data" name="data_evento" type="text" inputmode="numeric" placeholder="dd/mm/aaaa" maxlength="10" pattern="\d{2}/\d{2}/\d{4}" required>
+              </div>
+              <div class="campo campo-convidados">
+                <label for="topo-convidados">Número de convidados</label>
+                <input id="topo-convidados" name="convidados" type="number" min="1" inputmode="numeric" placeholder="Ex.: 80" required>
+              </div>
+              <div class="acao">
+                <button class="btn btn-brasa" type="submit">Solicitar Orçamento</button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ============ AUTORIDADE ============ -->
+  <section class="autoridade" id="autoridade" aria-label="O espaço em números">
+    <div class="wrap">
+      <ul>
+        <li>
+          <svg aria-hidden="true"><use href="#i-pessoas"/></svg>
+          <strong>Até <span class="contador" data-alvo="250">250</span> pessoas</strong>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V3h5M16 3h5v5M21 16v5h-5M8 21H3v-5"/><path d="M8 8h8v8H8z" opacity=".55"/></svg>
+          <strong><span class="contador" data-alvo="1200">1.200</span> <span class="unidade">m²</span></strong>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12 9 6.5l6.5 5.5M4.5 10.3V20h9v-9.7M7.5 20v-4h3v4"/><circle cx="19" cy="6" r="2.2"/><path d="M19 1.6v.9M19 9.5v.9M14.6 6h.9M22.5 6h.9M15.9 2.9l.6.6M21.5 8.5l.6.6M22.1 2.9l-.6.6M16.5 8.5l-.6.6"/></svg>
+          <strong>Ambientes interno e externo</strong>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ EXPERIÊNCIA 360° ============ -->
+  <section class="secao experiencia" id="experiencia">
+    <div class="wrap experiencia-grade">
+      <div class="experiencia-texto">
+        <h2 class="titulo-secao"><span>Mais espaço para</span> <span>o encontro.</span> <span>Menos cara de</span> <span>evento corporativo</span></h2>
+        <p class="texto-secao">O Farofa combina ambientes internos e externos, gastronomia, música e uma atmosfera descontraída para tirar o time do automático e transformar o evento em uma experiência mais leve.</p>
+      </div>
+      <div class="experiencia-foto">
+        <img src="imagens/experiencia-360-area-externa-noite.jpg" alt="Área externa do Farofa à noite, cheia de convidados sob o varal de luzes e os guarda-sóis" width="1920" height="1280" loading="lazy" decoding="async">
+        <div class="selo-360" aria-hidden="true">
+          <svg class="anel" viewBox="0 0 200 200">
+            <defs><path id="circulo-selo" d="M100,100 m-76,0 a76,76 0 1,1 152,0 a76,76 0 1,1 -152,0"/></defs>
+            <text font-family="Architects Daughter, cursive" font-size="17" fill="currentColor" letter-spacing="1">
+              <textPath href="#circulo-selo" textLength="470" lengthAdjust="spacing">ambientes • gastronomia • música • prosa •</textPath>
+            </text>
+          </svg>
+          <span class="numero">360°</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ EVENTOS ============ -->
+  <section class="secao eventos" id="eventos">
+    <div class="wrap">
+      <h2 class="titulo-secao"><span>Para cada encontro, um jeito</span> <span>diferente de fazer acontecer</span></h2>
+      <ul class="lista-eventos">
+        <li>
+          <span class="icone-evento"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8h6l-.5 12h-5z" transform="rotate(15 6 20)"/><path d="M3.3 13h5.4" transform="rotate(15 6 20)"/><path d="M15 8h6l-.5 12h-5z" transform="rotate(-15 18 20)"/><path d="M15.3 13h5.4" transform="rotate(-15 18 20)"/><path d="M12 2v2.2M9.2 3l.9 1.6M14.8 3l-.9 1.6"/></svg></span>
+          Confraternizações
+        </li>
+        <li>
+          <span class="icone-evento"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 8.5h10V19a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2z"/><path d="M15 11h2.5a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H15"/><path d="M4.6 8.5a2.3 2.3 0 0 1 1.6-3.9 3 3 0 0 1 5.4-1.2 2.6 2.6 0 0 1 4.1 2.6 1.6 1.6 0 0 1-.3 2.5"/><path d="M8.5 12v6M11.5 12v6"/></svg></span>
+          Happy hours
+        </li>
+        <li>
+          <span class="icone-evento"><svg aria-hidden="true"><use href="#i-pessoas"/></svg></span>
+          Integrações e dinâmicas
+        </li>
+        <li>
+          <span class="icone-evento"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 4.5A1.5 1.5 0 0 1 4.5 3h15A1.5 1.5 0 0 1 21 4.5v9a1.5 1.5 0 0 1-1.5 1.5h-15A1.5 1.5 0 0 1 3 13.5z"/><path d="M12 15v3M8.5 21.5 12 18l3.5 3.5"/><path d="m6.5 11.5 3-3 2.5 2 4.5-4.5"/></svg></span>
+          Treinamentos e workshops
+        </li>
+        <li>
+          <span class="icone-evento"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 3h9A1.5 1.5 0 0 1 15 4.5v5a1.5 1.5 0 0 1-1.5 1.5H8l-3 2.5V11h-.5A1.5 1.5 0 0 1 3 9.5v-5A1.5 1.5 0 0 1 4.5 3z"/><path d="M10.5 12.5h9A1.5 1.5 0 0 1 21 14v4a1.5 1.5 0 0 1-1.5 1.5H19V22l-2.8-2.5h-5.7A1.5 1.5 0 0 1 9 18v-4a1.5 1.5 0 0 1 1.5-1.5z"/><path d="M6.5 7h.01M9 7h.01M11.5 7h.01"/></svg></span>
+          Networking
+        </li>
+        <li>
+          <span class="icone-evento"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="3.2" cy="8" r="1.2"/><path d="M4.4 8H22"/><rect x="6.5" y="5.5" width="3" height="5" rx="1"/><rect x="11" y="5.5" width="3" height="5" rx="1"/><rect x="15.5" y="5.5" width="3" height="5" rx="1"/><path d="M12 22c-2.8 0-4.5-1.8-4.5-4 0-2.4 2-3.7 2.5-6 1.2 1 1.8 2.2 1.8 3.4.8-.5 1.3-1.4 1.4-2.4 1.8 1.4 3.3 3 3.3 5 0 2.2-1.7 4-4.5 4z"/></svg></span>
+          Almoços e churrascos corporativos
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ DIFERENCIAIS ============ -->
+  <section class="secao diferenciais" id="diferenciais">
+    <div class="wrap">
+      <h2 class="titulo-secao"><span>Um ambiente pensado para</span> <span>experiências fora do convencional</span></h2>
+      <ul class="lista-diferenciais">
+        <li>
+          <div class="diferencial-foto"><img src="imagens/diferencial-area-externa.jpg" alt="Área externa do Farofa ao ar livre, com mesas de madeira e guarda-sóis" width="720" height="1280" loading="lazy" decoding="async" style="object-position: 50% 62%"></div>
+          <h3>Área externa</h3>
+          <p>Espaço ao ar livre para mudar o ritmo do evento e aproveitar outro ambiente.</p>
+        </li>
+        <li>
+          <div class="diferencial-foto"><img src="imagens/diferencial-espaco-kids-pet.jpg" alt="Gato e cachorro no salão do Farofa, ambiente pet friendly" width="1050" height="1400" loading="lazy" decoding="async" style="object-position: 50% 45%"></div>
+          <h3>Espaço kids / pet</h3>
+          <p>Um espaço que acolhe diferentes públicos, com área kids e ambiente pet friendly.</p>
+        </li>
+        <li>
+          <div class="diferencial-foto"><img src="imagens/diferencial-estrutura-completa.jpg" alt="Salão interno do Farofa com mesas, bar e TVs" width="1400" height="933" loading="lazy" decoding="async" style="object-position: 50% 50%"></div>
+          <h3>Estrutura completa</h3>
+          <p>Churrasqueira de 40 metros, mesas e cadeiras para até 200 pessoas, projetor, telão e TVs.</p>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ GASTRONOMIA ============ -->
+  <section class="secao gastronomia" id="gastronomia">
+    <div class="wrap gastronomia-topo">
+      <h2 class="titulo-secao">Gastronomia no centro da experiência</h2>
+      <div>
+        <p class="texto-secao">Com cozinha própria e uma churrasqueira, o Farofa leva para os eventos um menu feito para compartilhar. Do café da manhã ao churrasco, do almoço ao happy hour, o formato acompanha a proposta do encontro.</p>
+      </div>
+    </div>
+    <div class="trilho-wrap">
+      <div class="trilho" id="trilho-gastronomia" tabindex="0" aria-label="Fotos da gastronomia do Farofa">
+        <div class="trilho-faixa">
+          <figure><img src="imagens/gastronomia-costela-fogo-de-chao.jpg" alt="Costela assando no fogo de chão" width="675" height="1200" loading="lazy" decoding="async"></figure>
+          <figure><img src="imagens/gastronomia-espetinhos.jpg" alt="Espetinhos de carne, frango e linguiça servidos na tábua" width="800" height="1200" loading="lazy" decoding="async"></figure>
+          <figure><img src="imagens/gastronomia-prato-brasileiro.jpg" alt="Prato brasileiro com arroz, feijão, couve, farofa e carne" width="1179" height="695" loading="lazy" decoding="async"></figure>
+          <figure><img src="imagens/gastronomia-cafe-da-manha.jpg" alt="Mesa de café da manhã com pães, frios e frutas" width="900" height="1200" loading="lazy" decoding="async"></figure>
+          <figure><img src="imagens/gastronomia-hamburguer.jpg" alt="Hambúrguer artesanal com queijo e salada" width="800" height="1200" loading="lazy" decoding="async"></figure>
+          <figure><img src="imagens/gastronomia-bolinhos.jpg" alt="Porção de bolinhos servida na tábua de madeira" width="900" height="1200" loading="lazy" decoding="async"></figure>
+          <figure><img src="imagens/gastronomia-arroz-com-queijo-coalho.jpg" alt="Arroz com queijo coalho grelhado em cumbuca" width="900" height="1200" loading="lazy" decoding="async"></figure>
+          <figure><img src="imagens/gastronomia-mesa-de-doces.jpg" alt="Mesa de sobremesas com bolos e banana caramelizada" width="900" height="1200" loading="lazy" decoding="async"></figure>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CLIENTES ============ -->
+  <section class="secao clientes" id="clientes">
+    <div class="wrap clientes-grade">
+      <div class="clientes-texto">
+        <h2 class="titulo-secao">Empresas que já escolheram o Farofa</h2>
+        <p class="texto-secao">Um espaço que já faz parte da história de diferentes empresas e recebe encontros que vão muito além do formato tradicional.</p>
+      </div>
+      <div class="logos-carrossel">
+        <div class="logos-slider" id="logos-slider" tabindex="0" aria-label="Logos de empresas clientes. Arraste para ver mais">
+          <ul class="logos">
+            <li><img class="logo-natura" src="imagens/cliente-natura.png" alt="Natura" width="289" height="220" loading="lazy" draggable="false"></li>
+            <li><img class="logo-nuvemshop" src="imagens/cliente-nuvemshop.png" alt="Nuvemshop" width="338" height="220" loading="lazy" draggable="false"></li>
+            <li><img class="logo-adp" src="imagens/cliente-adp.png" alt="ADP" width="484" height="220" loading="lazy" draggable="false"></li>
+            <li><img class="logo-siemens" src="imagens/cliente-siemens.png" alt="Siemens" width="1366" height="220" loading="lazy" draggable="false"></li>
+            <li><img class="logo-quata" src="imagens/cliente-quata.png" alt="Quatá" width="493" height="220" loading="lazy" draggable="false"></li>
+            <li><img class="logo-swift" src="imagens/cliente-swift.png" alt="Swift" width="366" height="220" loading="lazy" draggable="false"></li>
+          </ul>
+        </div>
+        <div class="logos-controles">
+          <button class="seta" type="button" data-logos="anterior" aria-label="Logos anteriores"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></button>
+          <button class="seta" type="button" data-logos="proximo" aria-label="Próximos logos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GALERIA ============ -->
+  <section class="secao galeria" id="galeria">
+    <div class="wrap">
+      <h2 class="titulo-secao">Eventos que saem do comum</h2>
+      <div class="galeria-grade" id="galeria-grade">
+        <button class="galeria-item grande" type="button"><img src="imagens/galeria-01-festa-no-patio.jpg" alt="Festa no pátio do Farofa com convidados e bandeirinhas" width="1400" height="933" loading="lazy" decoding="async"></button>
+        <button class="galeria-item alto" type="button"><img src="imagens/galeria-06-roda-de-samba.jpg" alt="Roda de samba na área externa do Farofa" width="787" height="1400" loading="lazy" decoding="async" style="object-position: 50% 68%"></button>
+        <button class="galeria-item" type="button"><img src="imagens/galeria-03-ativacao-de-marca.jpg" alt="Ativação de marca com carrinho de bebidas" width="1050" height="1400" loading="lazy" decoding="async"></button>
+        <button class="galeria-item" type="button"><img src="imagens/galeria-04-dj-na-area-externa.jpg" alt="DJ tocando para os convidados na área externa ao entardecer" width="1050" height="1400" loading="lazy" decoding="async"></button>
+        <button class="galeria-item" type="button"><img src="imagens/galeria-05-atividade-ao-ar-livre.jpg" alt="Tapetes de treino montados no pátio para atividade ao ar livre" width="1050" height="1400" loading="lazy" decoding="async"></button>
+        <button class="galeria-item alto" type="button"><img src="imagens/galeria-08-happy-hour.jpg" alt="Happy hour com mesas cheias na área coberta" width="787" height="1400" loading="lazy" decoding="async" style="object-position: 50% 62%"></button>
+        <button class="galeria-item grande" type="button"><img src="imagens/galeria-02-equipe-no-galpao.jpg" alt="Equipe de empresa reunida para foto no galpão" width="1050" height="1400" loading="lazy" decoding="async" style="object-position: 50% 75%"></button>
+        <button class="galeria-item" type="button"><img src="imagens/galeria-07-area-externa-ao-anoitecer.jpg" alt="Área externa ao anoitecer com varal de luzes e guarda-sóis" width="1050" height="1400" loading="lazy" decoding="async"></button>
+        <button class="galeria-item grande" type="button"><img src="imagens/galeria-10-salao-lotado.jpg" alt="Salão interno lotado em foto preto e branco" width="1400" height="933" loading="lazy" decoding="async"></button>
+        <button class="galeria-item alto" type="button"><img src="imagens/galeria-14-salao-interno.jpg" alt="Salão interno com mesas de madeira sob o telhado do galpão" width="787" height="1400" loading="lazy" decoding="async" style="object-position: 50% 60%"></button>
+        <button class="galeria-item" type="button"><img src="imagens/galeria-11-encontro-de-ciclistas.jpg" alt="Encontro de ciclistas no pátio à noite" width="1050" height="1400" loading="lazy" decoding="async"></button>
+        <button class="galeria-item" type="button"><img src="imagens/galeria-13-fachada-do-galpao.jpg" alt="Fachada do galpão vista do pátio" width="787" height="1400" loading="lazy" decoding="async"></button>
+        <button class="galeria-item" type="button"><img src="imagens/galeria-16-area-externa-de-dia.jpg" alt="Área externa durante o dia com barris e guarda-sóis" width="787" height="1400" loading="lazy" decoding="async"></button>
+        <button class="galeria-item alto" type="button"><img src="imagens/galeria-15-galpao-com-convidados.jpg" alt="Convidados circulando no galpão" width="787" height="1400" loading="lazy" decoding="async" style="object-position: 50% 60%"></button>
+        <button class="galeria-item grande" type="button"><img src="imagens/galeria-09-evento-de-natal.jpg" alt="Evento de Natal com Papai Noel e painel de marcas" width="1050" height="1400" loading="lazy" decoding="async"></button>
+        <button class="galeria-item" type="button"><img src="imagens/galeria-12-entrada-do-patio.jpg" alt="Entrada do pátio do Farofa com mesas e varal de luzes" width="1050" height="1400" loading="lazy" decoding="async"></button>
+      </div>
+    </div>
+
+    <dialog class="lightbox" id="lightbox" aria-label="Foto ampliada">
+      <img id="lightbox-img" src="" alt="">
+      <button class="lightbox-fechar" type="button" data-acao="fechar" aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+      <button class="lightbox-ant" type="button" data-acao="anterior" aria-label="Foto anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></button>
+      <button class="lightbox-prox" type="button" data-acao="proximo" aria-label="Próxima foto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
+      <p class="lightbox-contador" id="lightbox-contador"></p>
+    </dialog>
+  </section>
+
+  <!-- ============ LOCALIZAÇÃO ============ -->
+  <section class="secao localizacao" id="localizacao">
+    <div class="wrap localizacao-grade">
+      <h2 class="titulo-secao">Localização privilegiada e um espaço autêntico para o seu próximo evento corporativo</h2>
+      <address class="endereco">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21.5s-7-6.2-7-11.5a7 7 0 0 1 14 0c0 5.3-7 11.5-7 11.5z"/><circle cx="12" cy="10" r="2.5"/></svg>
+        <span>R. Guaipá, 551 - Vila Leopoldina,<br>São Paulo - SP, 05089-001</span>
+      </address>
+      <div class="mapa">
+        <iframe src="https://www.google.com/maps?q=R.+Guaip%C3%A1,+551+-+Vila+Leopoldina,+S%C3%A3o+Paulo+-+SP,+05089-001&amp;z=16&amp;output=embed" title="Mapa com a localização do Farofa na R. Guaipá, 551, Vila Leopoldina" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+      </div>
+      <div class="localizacao-botoes">
+        <a class="btn btn-brasa" href="https://www.google.com/maps/search/?api=1&amp;query=R.%20Guaip%C3%A1%2C%20551%20-%20Vila%20Leopoldina%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2005089-001" target="_blank" rel="noopener">Abrir no Google Maps</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ CONTATO ============ -->
+  <section class="secao contato" id="contato">
+    <div class="wrap contato-grade">
+      <div class="contato-texto">
+        <h2 class="titulo-secao">Seu próximo evento pode sair do óbvio.</h2>
+        <p class="texto-secao">Preencha o formulário e, em breve, nosso time entrará em contato com você.</p>
+      </div>
+
+      <div class="form-cartao">
+        <form class="form-orcamento" id="form-orcamento-contato" method="post">
+          <div class="campos">
+            <div class="campo">
+              <label for="contato-nome">Nome</label>
+              <input id="contato-nome" name="nome" type="text" autocomplete="name" required>
+            </div>
+            <div class="campo">
+              <label for="contato-telefone">Telefone</label>
+              <input id="contato-telefone" name="telefone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(11) 99999-9999" required>
+            </div>
+            <div class="campo">
+              <label for="contato-email">E-mail</label>
+              <input id="contato-email" name="email" type="email" autocomplete="email" required>
+            </div>
+            <div class="campo">
+              <label for="contato-empresa">Empresa</label>
+              <input id="contato-empresa" name="empresa" type="text" autocomplete="organization" required>
+            </div>
+            <div class="campo">
+              <label for="contato-tipo">Tipo de evento</label>
+              <input id="contato-tipo" name="tipo_evento" type="text" placeholder="Ex.: confraternização" required>
+            </div>
+            <div class="campo campo-data">
+              <label for="contato-data">Data do evento</label>
+              <input id="contato-data" name="data_evento" type="text" inputmode="numeric" placeholder="dd/mm/aaaa" maxlength="10" pattern="\d{2}/\d{2}/\d{4}" required>
+            </div>
+            <div class="campo campo-convidados">
+              <label for="contato-convidados">Número de convidados</label>
+              <input id="contato-convidados" name="convidados" type="number" min="1" inputmode="numeric" placeholder="Ex.: 80" required>
+            </div>
+            <div class="acao">
+              <button class="btn btn-brasa" type="submit">Solicitar Orçamento</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="rodape">
+  <div class="wrap">
+    <div class="rodape-grade">
+      <a class="rodape-logo" href="#topo" aria-label="Voltar ao início"><img src="imagens/logo-farofa-creme.svg" alt="Farofa — brasa &amp; prosa" width="894" height="290" loading="lazy"></a>
+    </div>
+    <div class="rodape-base">
+      <span>© 2026 Farofa. Todos os direitos reservados.</span>
+      <span>Desenvolvido por Dmove</span>
+    </div>
+  </div>
+</footer>
+
+<!-- WhatsApp flutuante (desktop). TROCAR NÚMERO: substituir 5511999999999 pelo WhatsApp do Farofa nos links .js-whatsapp -->
+<a class="whatsapp-flutuante js-whatsapp" href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20de%20eventos%20corporativos%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" rel="noopener" aria-label="Fale no WhatsApp">
+  <svg aria-hidden="true"><use href="#i-whatsapp"/></svg>
+</a>
+
+<!-- Barra fixa (mobile) -->
+<div class="barra-mobile" id="barra-mobile">
+  <a class="btn btn-brasa" href="#contato">Pedir orçamento</a>
+  <a class="btn btn-whatsapp js-whatsapp" href="https://wa.me/5511999999999?text=Ol%C3%A1!%20Vim%20pela%20p%C3%A1gina%20de%20eventos%20corporativos%20e%20gostaria%20de%20um%20or%C3%A7amento." target="_blank" rel="noopener" aria-label="Fale no WhatsApp">
+    <svg aria-hidden="true"><use href="#i-whatsapp"/></svg>
+  </a>
+</div>
+
+<!-- Interações da página (sem envio de formulário e sem tracking: ambos são integrados na implementação) -->
+<script>
+(function () {
+  // Cabeçalho sólido ao rolar
+  var cabecalho = document.getElementById('cabecalho');
+  function atualizaCabecalho() { cabecalho.classList.toggle('solido', window.scrollY > 40); }
+  atualizaCabecalho();
+  window.addEventListener('scroll', atualizaCabecalho, { passive: true });
+
+  // Barra fixa mobile: aparece fora do hero e some quando o formulário de contato está na tela
+  var barra = document.getElementById('barra-mobile');
+  var formTopo = document.getElementById('orcamento');
+  var contato = document.getElementById('contato');
+  var visiveis = new Set();
+  if ('IntersectionObserver' in window) {
+    var obs = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) { e.isIntersecting ? visiveis.add(e.target) : visiveis.delete(e.target); });
+      barra.classList.toggle('visivel', visiveis.size === 0);
+    }, { threshold: 0.15 });
+    obs.observe(formTopo); obs.observe(contato);
+  } else {
+    barra.classList.add('visivel');
+  }
+
+  // Máscaras de telefone e data
+  function mascaraTelefone(v) {
+    v = v.replace(/\D/g, '').slice(0, 11);
+    if (v.length > 10) return v.replace(/^(\d{2})(\d{5})(\d{0,4}).*/, '($1) $2-$3');
+    if (v.length > 6) return v.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, '($1) $2-$3');
+    if (v.length > 2) return v.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
+    return v.length ? '(' + v : v;
+  }
+  function mascaraData(v) {
+    v = v.replace(/\D/g, '').slice(0, 8);
+    if (v.length > 4) return v.replace(/^(\d{2})(\d{2})(\d{0,4})/, '$1/$2/$3');
+    if (v.length > 2) return v.replace(/^(\d{2})(\d{0,2})/, '$1/$2');
+    return v;
+  }
+  document.querySelectorAll('input[name="telefone"]').forEach(function (el) {
+    el.addEventListener('input', function () { el.value = mascaraTelefone(el.value); });
+  });
+  document.querySelectorAll('input[name="data_evento"]').forEach(function (el) {
+    el.addEventListener('input', function () { el.value = mascaraData(el.value); });
+  });
+
+  // Carrossel infinito da gastronomia: duplica as fotos para o loop e pausa no mouse/toque
+  var trilho = document.getElementById('trilho-gastronomia');
+  var faixa = trilho.querySelector('.trilho-faixa');
+  Array.prototype.slice.call(faixa.children).forEach(function (fig) {
+    var copia = fig.cloneNode(true);
+    copia.setAttribute('aria-hidden', 'true');
+    copia.querySelector('img').alt = '';
+    faixa.appendChild(copia);
+  });
+  trilho.classList.add('infinito');
+  trilho.addEventListener('touchstart', function () { trilho.classList.add('pausado'); }, { passive: true });
+  trilho.addEventListener('touchend', function () { trilho.classList.remove('pausado'); });
+
+  // Animações de rolagem: fade com leve deslocamento, em sequência dentro de cada grupo
+  if (document.documentElement.classList.contains('js-animar')) {
+    var grupos = [
+      ['.hero .local', 'cima', 0], ['.hero h1', 'cima', 120], ['.hero-sub', 'cima', 240], ['.form-topo .form-cartao', 'direita', 360],
+      ['main .titulo-secao', 'cima', 0], ['main .texto-secao', 'cima', 140],
+      ['.experiencia-foto', 'zoom', 120],
+      ['.lista-eventos li', 'cima', 0, 3, 110],
+      ['.lista-diferenciais li', 'cima', 0, 3, 160],
+      ['.trilho-wrap', 'cima', 160],
+      ['.logos-carrossel', 'esquerda', 100],
+      ['.galeria-item', 'zoom', 0, 4, 90],
+      ['.endereco', 'cima', 100], ['.mapa', 'cima', 160], ['.localizacao-botoes', 'cima', 200],
+      ['.contato .form-cartao', 'direita', 160]
+    ];
+    var revelar = [];
+    grupos.forEach(function (g) {
+      document.querySelectorAll(g[0]).forEach(function (el, i) {
+        if (el.hasAttribute('data-revelar')) return;
+        el.setAttribute('data-revelar', g[1]);
+        var atraso = g[2] + (g[3] ? (i % g[3]) * g[4] : 0);
+        if (atraso) el.style.setProperty('--atraso', atraso + 'ms');
+        revelar.push(el);
+      });
+    });
+    var obsRevelar = new IntersectionObserver(function (entradas) {
+      entradas.forEach(function (e) {
+        if (!e.isIntersecting) return;
+        e.target.classList.add('visivel');
+        obsRevelar.unobserve(e.target);
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -8% 0px' });
+    revelar.forEach(function (el) { obsRevelar.observe(el); });
+
+    // Parallax suave na foto do hero
+    var fotoHero = document.querySelector('.hero-fundo img');
+    var agendado = false;
+    function parallax() {
+      agendado = false;
+      var y = window.scrollY;
+      if (y > fotoHero.parentElement.offsetHeight) return;
+      fotoHero.style.transform = 'translate3d(0,' + (y * 0.3).toFixed(1) + 'px,0) scale(1.12)';
+    }
+    parallax();
+    window.addEventListener('scroll', function () {
+      if (!agendado) { agendado = true; requestAnimationFrame(parallax); }
+    }, { passive: true });
+  }
+
+  // Faixa de números: entrada em sequência + contagem quando aparece na tela
+  var autoridade = document.getElementById('autoridade');
+  var reduzMovimento = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function contarNumeros() {
+    autoridade.querySelectorAll('.contador').forEach(function (el) {
+      var alvo = parseInt(el.dataset.alvo, 10), duracao = 1600, inicio = null;
+      el.style.minWidth = el.getBoundingClientRect().width + 'px';
+      el.textContent = '0';
+      function passo(t) {
+        if (inicio === null) inicio = t;
+        var p = Math.min(1, (t - inicio) / duracao);
+        var suave = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.round(alvo * suave).toLocaleString('pt-BR');
+        if (p < 1) requestAnimationFrame(passo);
+      }
+      requestAnimationFrame(passo);
+    });
+  }
+  if (!reduzMovimento && 'IntersectionObserver' in window) {
+    autoridade.classList.add('animar');
+    var obsAutoridade = new IntersectionObserver(function (entradas) {
+      if (!entradas[0].isIntersecting) return;
+      obsAutoridade.disconnect();
+      requestAnimationFrame(function () {
+        autoridade.classList.add('animado');
+        contarNumeros();
+      });
+    }, { threshold: 0.4 });
+    obsAutoridade.observe(autoridade);
+  }
+
+  // Logos de clientes: slides automáticos + setas + arrastar com o mouse (no toque, a rolagem nativa já arrasta)
+  var carrosselLogos = document.querySelector('.logos-carrossel');
+  var slider = document.getElementById('logos-slider');
+  var arrastando = false, inicioX = 0, inicioScroll = 0, pausaLogos = false, timerLogos = null;
+  function larguraSlide() { return slider.querySelector('li').getBoundingClientRect().width; }
+  function irLogos(direcao) {
+    var w = larguraSlide(), max = slider.scrollWidth - slider.clientWidth, alvo;
+    if (direcao > 0) alvo = slider.scrollLeft >= max - 2 ? 0 : Math.min(max, (Math.round(slider.scrollLeft / w) + 1) * w);
+    else alvo = slider.scrollLeft <= 2 ? max : Math.max(0, (Math.round(slider.scrollLeft / w) - 1) * w);
+    slider.scrollTo({ left: alvo, behavior: 'smooth' });
+  }
+  var semMovimento = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function iniciaAutoplay() {
+    clearInterval(timerLogos);
+    if (semMovimento) return;
+    timerLogos = setInterval(function () {
+      if (!pausaLogos && !arrastando && !document.hidden) irLogos(1);
+    }, 3000);
+  }
+  document.querySelectorAll('[data-logos]').forEach(function (bt) {
+    bt.addEventListener('click', function () {
+      irLogos(bt.dataset.logos === 'proximo' ? 1 : -1);
+      iniciaAutoplay();
+    });
+  });
+  carrosselLogos.addEventListener('mouseenter', function () { pausaLogos = true; });
+  carrosselLogos.addEventListener('mouseleave', function () { pausaLogos = false; });
+  carrosselLogos.addEventListener('focusin', function () { pausaLogos = true; });
+  carrosselLogos.addEventListener('focusout', function () { pausaLogos = false; });
+  slider.addEventListener('touchstart', function () { pausaLogos = true; }, { passive: true });
+  slider.addEventListener('touchend', function () { pausaLogos = false; iniciaAutoplay(); });
+  slider.addEventListener('pointerdown', function (e) {
+    if (e.pointerType !== 'mouse') return;
+    arrastando = true; inicioX = e.clientX; inicioScroll = slider.scrollLeft;
+    slider.classList.add('arrastando');
+    slider.setPointerCapture(e.pointerId);
+  });
+  slider.addEventListener('pointermove', function (e) {
+    if (!arrastando) return;
+    slider.scrollLeft = inicioScroll - (e.clientX - inicioX);
+  });
+  function soltar() {
+    if (!arrastando) return;
+    arrastando = false;
+    var w = larguraSlide();
+    slider.scrollTo({ left: Math.round(slider.scrollLeft / w) * w, behavior: 'smooth' });
+    setTimeout(function () { slider.classList.remove('arrastando'); }, 450);
+    iniciaAutoplay();
+  }
+  slider.addEventListener('pointerup', soltar);
+  slider.addEventListener('pointercancel', soltar);
+  iniciaAutoplay();
+
+  // Galeria: foto ampliada
+  var grade = document.getElementById('galeria-grade');
+  var itens = Array.prototype.slice.call(grade.querySelectorAll('.galeria-item'));
+  var lightbox = document.getElementById('lightbox');
+  var lbImg = document.getElementById('lightbox-img');
+  var lbContador = document.getElementById('lightbox-contador');
+  var atual = 0;
+  function mostra(i) {
+    atual = (i + itens.length) % itens.length;
+    var img = itens[atual].querySelector('img');
+    lbImg.src = img.currentSrc || img.src;
+    lbImg.alt = img.alt;
+    lbContador.textContent = (atual + 1) + ' de ' + itens.length;
+  }
+  itens.forEach(function (item, i) {
+    item.addEventListener('click', function () {
+      mostra(i);
+      if (typeof lightbox.showModal === 'function') lightbox.showModal(); else lightbox.setAttribute('open', '');
+    });
+  });
+  lightbox.addEventListener('click', function (e) {
+    var alvo = e.target.closest('[data-acao]');
+    if (alvo) {
+      var acao = alvo.dataset.acao;
+      if (acao === 'fechar') lightbox.close();
+      if (acao === 'anterior') mostra(atual - 1);
+      if (acao === 'proximo') mostra(atual + 1);
+    } else if (e.target === lightbox) {
+      lightbox.close();
+    }
+  });
+  lightbox.addEventListener('keydown', function (e) {
+    if (e.key === 'ArrowLeft') mostra(atual - 1);
+    if (e.key === 'ArrowRight') mostra(atual + 1);
+  });
+})();
+</script>
+</body>
+</html>

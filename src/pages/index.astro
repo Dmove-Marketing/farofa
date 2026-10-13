@@ -1,0 +1,154 @@
+---
+import Base from '../layouts/Base.astro';
+import config from '../../config.json';
+
+const cdn = config.media.cdn_base + '/photos';
+
+const paginas = [
+  {
+    slug:   '/eventos-corporativos',
+    label:  'Eventos Corporativos',
+    desc:   'Landing page de captação — formulário, galeria e todos os diferenciais.',
+    img:    `${cdn}/hero-galpao-farofa.webp`,
+    alt:    'Galpão do Farofa com mesas e convidados',
+  },
+  {
+    slug:   '/bio',
+    label:  'Bio Instagram',
+    desc:   'Página link-in-bio com acesso rápido ao Instagram, localização e orçamento.',
+    img:    `${cdn}/hero_bio.webp`,
+    alt:    'Foto de perfil do Farofa',
+  },
+];
+---
+
+<Base
+  title="Farofa — Páginas do projeto"
+  description="Índice de páginas do projeto Farofa — Dmove."
+  noIndex={true}
+  hideWhatsApp={true}
+>
+  <main class="home">
+    <header class="home-topo">
+      <img src={`${cdn}/logo-farofa-creme.svg`} alt="Farofa — brasa &amp; prosa" class="home-logo" width="894" height="290" />
+      <p class="home-sub">Páginas do projeto</p>
+    </header>
+
+    <div class="home-grid">
+      {paginas.map((p) => (
+        <a class="tri-card" href={p.slug} data-funil={p.slug.replace('/', '')}>
+          <img src={p.img} alt={p.alt} loading="lazy" decoding="async" />
+          <div class="tri-card-corpo">
+            <h2>{p.label}</h2>
+            <p>{p.desc}</p>
+            <span class="tri-cta">Ver página →</span>
+          </div>
+        </a>
+      ))}
+    </div>
+
+    <footer class="home-rodape">
+      <span>© 2026 Farofa. Todos os direitos reservados.</span>
+      <span>Desenvolvido por Dmove</span>
+    </footer>
+  </main>
+</Base>
+
+<style is:global>
+@font-face {
+  font-family: "TAN Harmoni";
+  src: url("/fonts/tan-harmoni.woff2") format("woff2"),
+       url("/fonts/tan-harmoni.ttf")   format("truetype");
+  font-weight: 400; font-style: normal; font-display: swap;
+}
+:root {
+  --cor-brasa:        #902601;
+  --cor-brasa-escura: #6d1c00;
+  --cor-creme:        #f4eed2;
+  --cor-preto:        #000000;
+  --fonte-titulo:     "TAN Harmoni", "Playfair Display", Georgia, serif;
+  --fonte-texto:      "Quicksand", "Trebuchet MS", system-ui, sans-serif;
+  --raio:             6px;
+  --largura-max:      1240px;
+  --gutter:           clamp(20px, 4vw, 48px);
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0; padding: 0;
+  background: var(--cor-preto);
+  color: var(--cor-creme);
+  font-family: var(--fonte-texto);
+  font-weight: 500;
+  -webkit-font-smoothing: antialiased;
+  min-height: 100svh;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; text-decoration: none; }
+
+.home { display: flex; flex-direction: column; min-height: 100svh; padding: clamp(40px, 6vw, 80px) var(--gutter); max-width: var(--largura-max); margin: 0 auto; }
+
+.home-topo { text-align: center; margin-bottom: clamp(40px, 5vw, 64px); }
+.home-logo { width: 140px; height: auto; margin: 0 auto 16px; }
+.home-sub { margin: 0; font-family: var(--fonte-titulo); font-size: clamp(13px, 1vw, 15px); letter-spacing: 0.12em; text-transform: uppercase; opacity: .55; }
+
+.home-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: clamp(16px, 2vw, 28px);
+  flex: 1;
+}
+
+.tri-card {
+  position: relative; isolation: isolate;
+  border-radius: 10px; overflow: hidden;
+  aspect-ratio: 3 / 4;
+  display: flex; flex-direction: column; justify-content: flex-end;
+  transition: transform .3s ease;
+}
+.tri-card:hover { transform: translateY(-4px); }
+.tri-card img {
+  position: absolute; inset: 0; z-index: -2;
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .6s cubic-bezier(.2, .7, .2, 1);
+}
+.tri-card:hover img { transform: scale(1.05); }
+.tri-card::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(180deg, rgba(0,0,0,.1) 0%, rgba(0,0,0,.72) 70%, rgba(0,0,0,.88) 100%);
+}
+.tri-card-corpo { padding: clamp(20px, 2.5vw, 32px); }
+.tri-card-corpo h2 { font-family: var(--fonte-titulo); font-size: clamp(26px, 2.4vw, 34px); font-weight: 400; text-transform: uppercase; line-height: 0.9; letter-spacing: .01em; margin: 0 0 10px; }
+.tri-card-corpo p  { margin: 0 0 20px; font-size: 14px; line-height: 1.5; opacity: .78; }
+.tri-cta {
+  display: inline-block;
+  font-size: 14px; font-weight: 700; letter-spacing: .04em; text-transform: uppercase;
+  padding: 10px 18px; border-radius: var(--raio);
+  background: var(--cor-brasa); color: var(--cor-creme);
+  transition: background-color .2s ease;
+}
+.tri-card:hover .tri-cta { background: var(--cor-brasa-escura); }
+
+.home-rodape {
+  margin-top: clamp(40px, 5vw, 64px);
+  padding-top: 22px;
+  border-top: 1px solid rgba(244,238,210,.15);
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 8px;
+  font-size: 13px; opacity: .45;
+}
+
+@media (max-width: 600px) {
+  .home-grid { grid-template-columns: 1fr; }
+  .tri-card { aspect-ratio: 4 / 3; }
+  .home-rodape { flex-direction: column; align-items: center; text-align: center; }
+}
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-funil]').forEach((el) => {
+    el.addEventListener('click', () => {
+      (window as any).dataLayer = (window as any).dataLayer || [];
+      (window as any).dataLayer.push({ event: 'escolha_funil', funil: el.dataset.funil });
+    });
+  });
+</script>
