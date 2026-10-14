@@ -23,6 +23,18 @@ export function initPage() {
     window.addEventListener('scroll', atualiza, { passive: true });
   }
 
+  // Botão CTA do cabeçalho: aparece após o usuário rolar além da segunda seção
+  const cabecalhoAcoes = document.querySelector<HTMLElement>('.cabecalho-acoes');
+  const segundaSecao   = document.getElementById('experiencia');
+  if (cabecalhoAcoes && segundaSecao && 'IntersectionObserver' in window) {
+    const obsAcoes = new IntersectionObserver(([entrada]) => {
+      cabecalhoAcoes.classList.toggle('visivel', !entrada.isIntersecting);
+    }, { threshold: 0 });
+    obsAcoes.observe(segundaSecao);
+  } else if (cabecalhoAcoes) {
+    cabecalhoAcoes.classList.add('visivel');
+  }
+
   // Barra mobile: aparece fora do hero e some com o formulário de contato visível
   const barra = document.getElementById('barra-mobile');
   const formTopo = document.getElementById('orcamento');

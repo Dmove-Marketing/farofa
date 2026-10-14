@@ -93,7 +93,6 @@ const autoMap: Record<string, string> = {
 
         <section class="form-topo" id="orcamento" aria-label="Solicite orçamento">
           <div class="form-cartao">
-            <p class="form-titulo">Solicite orçamento</p>
             <form
               class="form-orcamento"
               data-form-id="lead-form-topo"
@@ -246,7 +245,7 @@ const autoMap: Record<string, string> = {
             <p>Espaço ao ar livre para mudar o ritmo do evento e aproveitar outro ambiente.</p>
           </li>
           <li>
-            <div class="diferencial-foto"><img src={photo('diferencial-espaco-kids-pet')} alt="Gato e cachorro no salão do Farofa, ambiente pet friendly" width="1050" height="1400" loading="lazy" decoding="async" style="object-position: 50% 45%" /></div>
+            <div class="diferencial-foto"><img src={photo('pexels-gorkemography-1013671176-38312285')} alt="Ambiente descontraído no Farofa, espaço kids e pet friendly" width="1050" height="1400" loading="lazy" decoding="async" /></div>
             <h3>Espaço kids / pet</h3>
             <p>Um espaço que acolhe diferentes públicos, com área kids e ambiente pet friendly.</p>
           </li>
@@ -550,7 +549,8 @@ h1, h2, h3 { font-family: var(--fonte-titulo); font-weight: 400; margin: 0; text
 .cabecalho.solido .wrap { height: 68px; }
 .cabecalho .logo img { width: 132px; height: auto; transition: width .3s ease; }
 .cabecalho.solido .logo img { width: 112px; }
-.cabecalho-acoes { display: flex; align-items: center; gap: 22px; }
+.cabecalho-acoes { display: flex; align-items: center; gap: 22px; opacity: 0; pointer-events: none; transition: opacity .3s ease; }
+.cabecalho-acoes.visivel { opacity: 1; pointer-events: auto; }
 .cabecalho .btn { padding: 12px 20px; font-size: 15px; }
 
 /* ── Hero / Primeira dobra ─────────────────────────────────── */
