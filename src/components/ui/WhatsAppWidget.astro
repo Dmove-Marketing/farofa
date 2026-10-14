@@ -558,7 +558,8 @@ const introMessages = [
     e.stopPropagation();
     hideTeaser(true);
   });
-  document.getElementById('wa-teaser-open')?.addEventListener('click', () => {
+  document.getElementById('wa-teaser-open')?.addEventListener('click', (e) => {
+    e.stopPropagation();
     try { sessionStorage.setItem('wa_teaser_off', '1'); } catch (_) {}
     openPopup();
   });
