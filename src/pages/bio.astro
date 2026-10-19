@@ -46,7 +46,10 @@ const autoMap: Record<string, string> = {
 
   <main class="bio">
     <div class="bio-fundo" aria-hidden="true">
-      <img src={`${cdn}/hero_bio.webp`} alt="" width="800" height="800" fetchpriority="high" />
+      <picture>
+        <source media="(min-width: 768px)" srcset={`${cdn}/IMG_1934.webp`} />
+        <img src={`${cdn}/hero_bio.webp`} alt="" width="800" height="800" fetchpriority="high" />
+      </picture>
     </div>
 
     <div class="bio-conteudo">
