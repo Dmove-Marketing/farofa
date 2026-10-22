@@ -1,6 +1,8 @@
 ---
 import 'flatpickr/dist/flatpickr.min.css';
+import { Image } from 'astro:assets';
 import Base from '../layouts/Base.astro';
+import '../styles/fontes-google.css';
 import { getPreset } from '../scripts/form-presets';
 import config from '../../config.json';
 
@@ -50,10 +52,6 @@ const autoMap: Record<string, string> = {
         document.documentElement.classList.add('js-animar');
       }
     </script>
-    <link rel="preload" href="/fonts/tan-harmoni.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Quicksand:wght@400;500;600;700&display=swap" />
   </Fragment>
 
   <!-- ícones reutilizáveis (sprite inline) -->
@@ -83,7 +81,7 @@ const autoMap: Record<string, string> = {
       <div class="wrap hero-grade">
         <section class="hero" id="topo">
           <div class="hero-fundo">
-            <img src={photo('hero-galpao-farofa')} alt="Galpão do Farofa com mesas de madeira, telões e bar ao fundo" width="1920" height="1280" fetchpriority="high" />
+            <Image src={photo('hero-galpao-farofa')} widths={[640, 960, 1280, 1920]} sizes="100vw" quality={72} alt="Galpão do Farofa com mesas de madeira, telões e bar ao fundo" width="1920" height="1280" loading="eager" fetchpriority="high" />
           </div>
           <div class="hero-texto">
             <p class="local">Vila Leopoldina • São Paulo</p>
@@ -188,7 +186,7 @@ const autoMap: Record<string, string> = {
           <p class="texto-secao">O Farofa combina ambientes internos e externos, gastronomia, música e uma atmosfera descontraída para tirar o time do automático e transformar o evento em uma experiência mais leve.</p>
         </div>
         <div class="experiencia-foto">
-          <img src={photo('experiencia-360-area-externa-noite')} alt="Área externa do Farofa à noite, cheia de convidados sob o varal de luzes e os guarda-sóis" width="1920" height="1280" loading="lazy" decoding="async" />
+          <Image src={photo('experiencia-360-area-externa-noite')} widths={[480, 800, 1200]} sizes="(max-width: 1080px) 100vw, 660px" quality={72} alt="Área externa do Farofa à noite, cheia de convidados sob o varal de luzes e os guarda-sóis" width="1920" height="1280" loading="lazy" decoding="async" />
           <div class="selo-360" aria-hidden="true">
             <svg class="anel" viewBox="0 0 200 200">
               <defs><path id="circulo-selo" d="M100,100 m-76,0 a76,76 0 1,1 152,0 a76,76 0 1,1 -152,0"/></defs>
@@ -241,17 +239,17 @@ const autoMap: Record<string, string> = {
         <h2 class="titulo-secao"><span>Um ambiente pensado para</span> <span>experiências fora do convencional</span></h2>
         <ul class="lista-diferenciais">
           <li>
-            <div class="diferencial-foto"><img src={photo('diferencial-area-externa')} alt="Área externa do Farofa ao ar livre, com mesas de madeira e guarda-sóis" width="720" height="1280" loading="lazy" decoding="async" style="object-position: 50% 62%" /></div>
+            <div class="diferencial-foto"><Image src={photo('diferencial-area-externa')} widths={[400, 640, 900]} sizes="(max-width: 760px) 100vw, 400px" quality={72} alt="Área externa do Farofa ao ar livre, com mesas de madeira e guarda-sóis" width="720" height="1280" loading="lazy" decoding="async" style="object-position: 50% 62%" /></div>
             <h3>Área externa</h3>
             <p>Espaço ao ar livre para mudar o ritmo do evento e aproveitar outro ambiente.</p>
           </li>
           <li>
-            <div class="diferencial-foto"><img src={photo('pexels-gorkemography-1013671176-38312285')} alt="Ambiente descontraído no Farofa, espaço kids e pet friendly" width="1050" height="1400" loading="lazy" decoding="async" /></div>
+            <div class="diferencial-foto"><Image src={photo('pexels-gorkemography-1013671176-38312285')} widths={[400, 640, 900]} sizes="(max-width: 760px) 100vw, 400px" quality={72} alt="Ambiente descontraído no Farofa, espaço kids e pet friendly" width="1050" height="1400" loading="lazy" decoding="async" /></div>
             <h3>Espaço kids / pet</h3>
             <p>Um espaço que acolhe diferentes públicos, com área kids e ambiente pet friendly.</p>
           </li>
           <li>
-            <div class="diferencial-foto"><img src={photo('diferencial-estrutura-completa')} alt="Salão interno do Farofa com mesas, bar e TVs" width="1400" height="933" loading="lazy" decoding="async" /></div>
+            <div class="diferencial-foto"><Image src={photo('diferencial-estrutura-completa')} widths={[400, 640, 900]} sizes="(max-width: 760px) 100vw, 400px" quality={72} alt="Salão interno do Farofa com mesas, bar e TVs" width="1400" height="933" loading="lazy" decoding="async" /></div>
             <h3>Estrutura completa</h3>
             <p>Churrasqueira de 40 metros, estrutura de 50 a 700 convidados, projetor, telão e TVs.</p>
           </li>
@@ -270,14 +268,14 @@ const autoMap: Record<string, string> = {
       <div class="trilho-wrap">
         <div class="trilho" id="trilho-gastronomia" tabindex="0" aria-label="Fotos da gastronomia do Farofa">
           <div class="trilho-faixa">
-            <figure><img src={photo('gastronomia-costela-fogo-de-chao')} alt="Costela assando no fogo de chão" width="675" height="1200" loading="lazy" decoding="async" /></figure>
-            <figure><img src={photo('gastronomia-espetinhos')} alt="Espetinhos de carne, frango e linguiça servidos na tábua" width="800" height="1200" loading="lazy" decoding="async" /></figure>
-            <figure><img src={photo('gastronomia-prato-brasileiro')} alt="Prato brasileiro com arroz, feijão, couve, farofa e carne" width="1179" height="695" loading="lazy" decoding="async" /></figure>
-            <figure><img src={photo('gastronomia-cafe-da-manha')} alt="Mesa de café da manhã com pães, frios e frutas" width="900" height="1200" loading="lazy" decoding="async" /></figure>
-            <figure><img src={photo('gastronomia-hamburguer')} alt="Hambúrguer artesanal com queijo e salada" width="800" height="1200" loading="lazy" decoding="async" /></figure>
-            <figure><img src={photo('gastronomia-bolinhos')} alt="Porção de bolinhos servida na tábua de madeira" width="900" height="1200" loading="lazy" decoding="async" /></figure>
-            <figure><img src={photo('gastronomia-arroz-com-queijo-coalho')} alt="Arroz com queijo coalho grelhado em cumbuca" width="900" height="1200" loading="lazy" decoding="async" /></figure>
-            <figure><img src={photo('gastronomia-mesa-de-doces')} alt="Mesa de sobremesas com bolos e banana caramelizada" width="900" height="1200" loading="lazy" decoding="async" /></figure>
+            <figure><Image src={photo('gastronomia-costela-fogo-de-chao')} widths={[320, 480, 640]} sizes="(max-width: 760px) 70vw, 320px" quality={72} alt="Costela assando no fogo de chão" width="675" height="1200" loading="lazy" decoding="async" /></figure>
+            <figure><Image src={photo('gastronomia-espetinhos')} widths={[320, 480, 640]} sizes="(max-width: 760px) 70vw, 320px" quality={72} alt="Espetinhos de carne, frango e linguiça servidos na tábua" width="800" height="1200" loading="lazy" decoding="async" /></figure>
+            <figure><Image src={photo('gastronomia-prato-brasileiro')} widths={[320, 480, 640]} sizes="(max-width: 760px) 70vw, 320px" quality={72} alt="Prato brasileiro com arroz, feijão, couve, farofa e carne" width="1179" height="695" loading="lazy" decoding="async" /></figure>
+            <figure><Image src={photo('gastronomia-cafe-da-manha')} widths={[320, 480, 640]} sizes="(max-width: 760px) 70vw, 320px" quality={72} alt="Mesa de café da manhã com pães, frios e frutas" width="900" height="1200" loading="lazy" decoding="async" /></figure>
+            <figure><Image src={photo('gastronomia-hamburguer')} widths={[320, 480, 640]} sizes="(max-width: 760px) 70vw, 320px" quality={72} alt="Hambúrguer artesanal com queijo e salada" width="800" height="1200" loading="lazy" decoding="async" /></figure>
+            <figure><Image src={photo('gastronomia-bolinhos')} widths={[320, 480, 640]} sizes="(max-width: 760px) 70vw, 320px" quality={72} alt="Porção de bolinhos servida na tábua de madeira" width="900" height="1200" loading="lazy" decoding="async" /></figure>
+            <figure><Image src={photo('gastronomia-arroz-com-queijo-coalho')} widths={[320, 480, 640]} sizes="(max-width: 760px) 70vw, 320px" quality={72} alt="Arroz com queijo coalho grelhado em cumbuca" width="900" height="1200" loading="lazy" decoding="async" /></figure>
+            <figure><Image src={photo('gastronomia-mesa-de-doces')} widths={[320, 480, 640]} sizes="(max-width: 760px) 70vw, 320px" quality={72} alt="Mesa de sobremesas com bolos e banana caramelizada" width="900" height="1200" loading="lazy" decoding="async" /></figure>
           </div>
         </div>
       </div>
@@ -293,12 +291,12 @@ const autoMap: Record<string, string> = {
         <div class="logos-carrossel">
           <div class="logos-slider" id="logos-slider" tabindex="0" aria-label="Logos de empresas clientes. Arraste para ver mais">
             <ul class="logos">
-              <li><img class="logo-natura"    src={photo('cliente-natura')}    alt="Natura"    width="289" height="220" loading="lazy" draggable="false" /></li>
-              <li><img class="logo-nuvemshop" src={photo('cliente-nuvemshop')} alt="Nuvemshop" width="338" height="220" loading="lazy" draggable="false" /></li>
-              <li><img class="logo-adp"       src={photo('cliente-adp')}       alt="ADP"       width="484" height="220" loading="lazy" draggable="false" /></li>
-              <li><img class="logo-siemens"   src={photo('cliente-siemens')}   alt="Siemens"   width="1366" height="220" loading="lazy" draggable="false" /></li>
-              <li><img class="logo-quata"     src={photo('cliente-quata')}     alt="Quatá"     width="493" height="220" loading="lazy" draggable="false" /></li>
-              <li><img class="logo-swift"     src={photo('cliente-swift')}     alt="Swift"     width="366" height="220" loading="lazy" draggable="false" /></li>
+              <li><Image class="logo-natura"    src={photo('cliente-natura')}    alt="Natura"    width="289" height="220" loading="lazy" draggable="false" /></li>
+              <li><Image class="logo-nuvemshop" src={photo('cliente-nuvemshop')} alt="Nuvemshop" width="338" height="220" loading="lazy" draggable="false" /></li>
+              <li><Image class="logo-adp"       src={photo('cliente-adp')}       alt="ADP"       width="484" height="220" loading="lazy" draggable="false" /></li>
+              <li><Image class="logo-siemens"   src={photo('cliente-siemens')}   alt="Siemens"   width="1366" height="220" loading="lazy" draggable="false" /></li>
+              <li><Image class="logo-quata"     src={photo('cliente-quata')}     alt="Quatá"     width="493" height="220" loading="lazy" draggable="false" /></li>
+              <li><Image class="logo-swift"     src={photo('cliente-swift')}     alt="Swift"     width="366" height="220" loading="lazy" draggable="false" /></li>
             </ul>
           </div>
           <div class="logos-controles">
@@ -314,23 +312,23 @@ const autoMap: Record<string, string> = {
       <div class="wrap">
         <h2 class="titulo-secao">Eventos que saem do comum</h2>
         <div class="galeria-grade" id="galeria-grade">
-          <button class="galeria-item grande" type="button"><img src={photo('galeria-01-festa-no-patio')}           alt="Festa no pátio do Farofa com convidados e bandeirinhas"         width="1400" height="933"  loading="lazy" decoding="async" /></button>
-          <button class="galeria-item alto"   type="button"><img src={photo('galeria-06-roda-de-samba')}            alt="Roda de samba na área externa do Farofa"                        width="787"  height="1400" loading="lazy" decoding="async" style="object-position: 50% 68%" /></button>
-          <button class="galeria-item"        type="button"><img src={photo('galeria-03-ativacao-de-marca')}        alt="Ativação de marca com carrinho de bebidas"                      width="1050" height="1400" loading="lazy" decoding="async" /></button>
-          <button class="galeria-item"        type="button"><img src={photo('galeria-04-dj-na-area-externa')}       alt="DJ tocando para os convidados na área externa ao entardecer"    width="1050" height="1400" loading="lazy" decoding="async" /></button>
+          <button class="galeria-item grande" type="button"><Image src={photo('galeria-01-festa-no-patio')} widths={[480, 800, 1280]} sizes="(max-width: 760px) 100vw, 620px"           alt="Festa no pátio do Farofa com convidados e bandeirinhas"         width="1400" height="933"  loading="lazy" decoding="async" /></button>
+          <button class="galeria-item alto"   type="button"><Image src={photo('galeria-06-roda-de-samba')} widths={[320, 480, 800, 1280]} sizes="(max-width: 760px) 50vw, 310px"            alt="Roda de samba na área externa do Farofa"                        width="787"  height="1400" loading="lazy" decoding="async" style="object-position: 50% 68%" /></button>
+          <button class="galeria-item"        type="button"><Image src={photo('galeria-03-ativacao-de-marca')} widths={[320, 480, 800, 1280]} sizes="(max-width: 760px) 50vw, 310px"        alt="Ativação de marca com carrinho de bebidas"                      width="1050" height="1400" loading="lazy" decoding="async" /></button>
+          <button class="galeria-item"        type="button"><Image src={photo('galeria-04-dj-na-area-externa')} widths={[320, 480, 800, 1280]} sizes="(max-width: 760px) 50vw, 310px"       alt="DJ tocando para os convidados na área externa ao entardecer"    width="1050" height="1400" loading="lazy" decoding="async" /></button>
           <div class="galeria-duplo">
-            <button class="galeria-item" type="button"><img src={photo('galeria-05-atividade-ao-ar-livre')}    alt="Tapetes de treino montados no pátio para atividade ao ar livre" width="1050" height="1400" loading="lazy" decoding="async" /></button>
-            <button class="galeria-item galeria-duplo-grande" type="button"><img src={photo('galeria-02-equipe-no-galpao')} alt="Equipe de empresa reunida para foto no galpão"           width="1050" height="1400" loading="lazy" decoding="async" style="object-position: 50% 75%" /></button>
-            <button class="galeria-item" type="button"><img src={photo('galeria-11-encontro-de-ciclistas')}    alt="Encontro de ciclistas no pátio à noite"                         width="1050" height="1400" loading="lazy" decoding="async" /></button>
+            <button class="galeria-item" type="button"><Image src={photo('galeria-05-atividade-ao-ar-livre')} widths={[320, 480, 800, 1280]} sizes="(max-width: 760px) 50vw, 310px"    alt="Tapetes de treino montados no pátio para atividade ao ar livre" width="1050" height="1400" loading="lazy" decoding="async" /></button>
+            <button class="galeria-item galeria-duplo-grande" type="button"><Image src={photo('galeria-02-equipe-no-galpao')} widths={[480, 800, 1280]} sizes="(max-width: 760px) 100vw, 620px" quality={72} alt="Equipe de empresa reunida para foto no galpão"           width="1050" height="1400" loading="lazy" decoding="async" style="object-position: 50% 75%" /></button>
+            <button class="galeria-item" type="button"><Image src={photo('galeria-11-encontro-de-ciclistas')} widths={[320, 480, 800, 1280]} sizes="(max-width: 760px) 50vw, 310px"    alt="Encontro de ciclistas no pátio à noite"                         width="1050" height="1400" loading="lazy" decoding="async" /></button>
           </div>
-          <button class="galeria-item"        type="button"><img src={photo('galeria-07-area-externa-ao-anoitecer')} alt="Área externa ao anoitecer com varal de luzes e guarda-sóis"   width="1050" height="1400" loading="lazy" decoding="async" /></button>
-          <button class="galeria-item grande" type="button"><img src={photo('galeria-10-salao-lotado')}             alt="Salão interno lotado em foto preto e branco"                    width="1400" height="933"  loading="lazy" decoding="async" /></button>
-          <button class="galeria-item alto"   type="button"><img src={photo('galeria-14-salao-interno')}            alt="Salão interno com mesas de madeira sob o telhado do galpão"    width="787"  height="1400" loading="lazy" decoding="async" style="object-position: 50% 60%" /></button>
-          <button class="galeria-item"        type="button"><img src={photo('galeria-13-fachada-do-galpao')}        alt="Fachada do galpão vista do pátio"                               width="787"  height="1400" loading="lazy" decoding="async" /></button>
-          <button class="galeria-item"        type="button"><img src={photo('galeria-16-area-externa-de-dia')}      alt="Área externa durante o dia com barris e guarda-sóis"            width="787"  height="1400" loading="lazy" decoding="async" /></button>
-          <button class="galeria-item alto"   type="button"><img src={photo('galeria-15-galpao-com-convidados')}    alt="Convidados circulando no galpão"                                width="787"  height="1400" loading="lazy" decoding="async" style="object-position: 50% 60%" /></button>
-          <button class="galeria-item grande" type="button"><img src={photo('galeria-09-evento-de-natal')}          alt="Evento de Natal com Papai Noel e painel de marcas"              width="1050" height="1400" loading="lazy" decoding="async" /></button>
-          <button class="galeria-item"        type="button"><img src={photo('galeria-12-entrada-do-patio')}         alt="Entrada do pátio do Farofa com mesas e varal de luzes"          width="1050" height="1400" loading="lazy" decoding="async" /></button>
+          <button class="galeria-item"        type="button"><Image src={photo('galeria-07-area-externa-ao-anoitecer')} widths={[320, 480, 800, 1280]} sizes="(max-width: 760px) 50vw, 310px" quality={72} alt="Área externa ao anoitecer com varal de luzes e guarda-sóis"   width="1050" height="1400" loading="lazy" decoding="async" /></button>
+          <button class="galeria-item grande" type="button"><Image src={photo('galeria-10-salao-lotado')} widths={[480, 800, 1280]} sizes="(max-width: 760px) 100vw, 620px"             alt="Salão interno lotado em foto preto e branco"                    width="1400" height="933"  loading="lazy" decoding="async" /></button>
+          <button class="galeria-item alto"   type="button"><Image src={photo('galeria-14-salao-interno')} widths={[320, 480, 800, 1280]} sizes="(max-width: 760px) 50vw, 310px"            alt="Salão interno com mesas de madeira sob o telhado do galpão"    width="787"  height="1400" loading="lazy" decoding="async" style="object-position: 50% 60%" /></button>
+          <button class="galeria-item"        type="button"><Image src={photo('galeria-13-fachada-do-galpao')} widths={[320, 480, 800, 1280]} sizes="(max-width: 760px) 50vw, 310px"        alt="Fachada do galpão vista do pátio"                               width="787"  height="1400" loading="lazy" decoding="async" /></button>
+          <button class="galeria-item"        type="button"><Image src={photo('galeria-16-area-externa-de-dia')} widths={[320, 480, 800, 1280]} sizes="(max-width: 760px) 50vw, 310px"      alt="Área externa durante o dia com barris e guarda-sóis"            width="787"  height="1400" loading="lazy" decoding="async" /></button>
+          <button class="galeria-item alto"   type="button"><Image src={photo('galeria-15-galpao-com-convidados')} widths={[320, 480, 800, 1280]} sizes="(max-width: 760px) 50vw, 310px"    alt="Convidados circulando no galpão"                                width="787"  height="1400" loading="lazy" decoding="async" style="object-position: 50% 60%" /></button>
+          <button class="galeria-item grande" type="button"><Image src={photo('galeria-09-evento-de-natal')} widths={[480, 800, 1280]} sizes="(max-width: 760px) 100vw, 620px"          alt="Evento de Natal com Papai Noel e painel de marcas"              width="1050" height="1400" loading="lazy" decoding="async" /></button>
+          <button class="galeria-item"        type="button"><Image src={photo('galeria-12-entrada-do-patio')} widths={[320, 480, 800, 1280]} sizes="(max-width: 760px) 50vw, 310px"         alt="Entrada do pátio do Farofa com mesas e varal de luzes"          width="1050" height="1400" loading="lazy" decoding="async" /></button>
         </div>
       </div>
 

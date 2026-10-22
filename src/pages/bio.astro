@@ -1,6 +1,7 @@
 ---
 import 'flatpickr/dist/flatpickr.min.css';
 import Base from '../layouts/Base.astro';
+import '../styles/fontes-google.css';
 import { getPreset } from '../scripts/form-presets';
 import config from '../../config.json';
 
@@ -38,10 +39,6 @@ const autoMap: Record<string, string> = {
   whatsAppShowEmpresaField={true}
 >
   <Fragment slot="head">
-    <link rel="preload" href="/fonts/tan-harmoni.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" />
   </Fragment>
 
   <main class="bio">

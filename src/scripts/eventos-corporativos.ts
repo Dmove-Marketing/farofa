@@ -222,7 +222,9 @@ export function initPage() {
     const mostra = (i: number) => {
       atual = ((i % itens.length) + itens.length) % itens.length;
       const img = itens[atual].querySelector<HTMLImageElement>('img')!;
-      lbImg.src = img.currentSrc || img.src;
+      // lightbox usa a maior versão do srcset (a miniatura da grade é pequena demais)
+      const maior = img.srcset ? img.srcset.split(',').pop()!.trim().split(' ')[0] : '';
+      lbImg.src = maior || img.currentSrc || img.src;
       lbImg.alt = img.alt;
       lbContador.textContent = `${atual + 1} de ${itens.length}`;
     };
