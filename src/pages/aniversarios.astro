@@ -5,7 +5,9 @@ import '../styles/fontes-google.css';
 import { getPreset, funnelPreset } from '../scripts/form-presets';
 import config from '../../config.json';
 
-const fields   = getPreset(funnelPreset['aniversarios']);
+const fields   = getPreset(funnelPreset['aniversarios']).map((f) =>
+  f.name === 'email' ? { ...f, placeholder: 'voce@email.com.br' } : f
+);
 const webhook  = config.forms['lead-form'].webhooks[0];
 const cdn      = config.media.cdn_base + '/photos';
 const photo    = (name: string) => `${cdn}/${name}.webp`;
@@ -898,8 +900,8 @@ h1, h2, h3 { font-family: var(--fonte-titulo); font-weight: 400; margin: 0; text
 /* ── Aniversários: ajustes ─────────────────────────────────── */
 .hero-cta { margin-top: 28px; }
 .experiencia-foto img { aspect-ratio: 4 / 3; object-fit: cover; }
-.lista-diferenciais { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-.lista-diferenciais h3 { font-size: clamp(26px, 2.1vw, 32px); }
+.lista-diferenciais { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: clamp(28px, 3vw, 48px); }
+.lista-diferenciais h3 { font-size: clamp(28px, 2.4vw, 34px); }
 .diferencial-foto img, .trilho img { background: #1a1a1a; }
 
 /* Galeria em carrossel */
@@ -930,7 +932,7 @@ h1, h2, h3 { font-family: var(--fonte-titulo); font-weight: 400; margin: 0; text
   .faq-grade { grid-template-columns: minmax(0, 1fr); }
 }
 @media (max-width: 760px) {
-  .lista-diferenciais { grid-template-columns: minmax(0, 1fr); }
+  .lista-diferenciais { grid-template-columns: minmax(0, 1fr); gap: 44px; }
   .galeria-faixa { gap: 10px; }
   .galeria-faixa li { flex-basis: 72vw; }
   .faq .titulo-secao { text-align: center; }
