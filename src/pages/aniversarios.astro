@@ -1,0 +1,946 @@
+---
+import 'flatpickr/dist/flatpickr.min.css';
+import Base from '../layouts/Base.astro';
+import '../styles/fontes-google.css';
+import { getPreset, funnelPreset } from '../scripts/form-presets';
+import config from '../../config.json';
+
+const fields   = getPreset(funnelPreset['aniversarios']);
+const webhook  = config.forms['lead-form'].webhooks[0];
+const cdn      = config.media.cdn_base + '/photos';
+const photo    = (name: string) => `${cdn}/${name}.webp`;
+const waPhone  = config.whatsapp.phone;
+
+const title       = 'Aniversário no Farofa | Vila Leopoldina, São Paulo';
+const description = 'Comemore seu aniversário na Vila Leopoldina (SP): 1.200 m², ambientes interno e externo, churrasqueira de 40 metros, chope gelado e sem reserva mínima. Reserve com o Farofa.';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type':    'EventVenue',
+  name:        'Farofa — Brasa & Prosa',
+  description,
+  address: {
+    '@type':          'PostalAddress',
+    streetAddress:    'R. Guaipá, 551',
+    addressLocality:  'São Paulo',
+    addressRegion:    'SP',
+    postalCode:       '05089-001',
+    addressCountry:   'BR',
+  },
+  telephone: `+${waPhone}`,
+};
+
+const autoMap: Record<string, string> = {
+  nome: 'name', email: 'email', telefone: 'tel', empresa: 'organization',
+};
+
+const diferenciais = [
+  { titulo: 'Área externa', texto: 'Mais espaço para reunir a turma, curtir o clima e deixar a comemoração fluir', img: 'SaveClip.App_778340500_17964215190159645_2034407897360859028_n', alt: 'Área externa do Farofa com mesas e convidados' },
+  { titulo: 'Espaço kids / pet', texto: 'Um lugar para reunir a família toda, com espaço para as crianças e ambiente pet friendly', img: 'WhatsApp_Image_2026-10-28_at_1.47.57_PM', alt: 'Espaço kids e pet friendly do Farofa' },
+  { titulo: 'Estrutura completa', texto: 'Churrasqueira de 40 metros, mesas e cadeiras para até 200 pessoas, projetor, telão e TVs.', img: 'IMG_1932', alt: 'Estrutura do Farofa com mesas, telão e TVs' },
+  { titulo: 'Chope gelado', texto: 'Chopp Heineken para brindar com a turma e deixar a comemoração ainda melhor', img: 'pexels-glauco-epov-2795802-4336734', alt: 'Chope gelado sendo servido' },
+];
+
+const gastronomia = [
+  ['IMG_1959', 'Prato da gastronomia do Farofa'],
+  ['d66da5bf-8eab-405d-a1c9-d5199e511a2c', 'Comida na brasa do Farofa'],
+  ['IMG_9448.JPEG', 'Prato servido no Farofa'],
+  ['IMG_9470.JPG', 'Porção servida no Farofa'],
+  ['a9946fad-7595-45ab-9833-1ee5f0dbd6e7', 'Petisco servido no Farofa'],
+  ['IMG_8650.JPEG', 'Mesa de comida do Farofa'],
+];
+
+const galeria = [
+  'SaveClip.App_707763376_17950289286159645_3208235419937660951_n',
+  'SaveClip.App_707713991_17950289343159645_154493809361517761_n',
+  'SaveClip.App_708102639_17950289316159645_149093685290483172_n',
+  'SaveClip.App_707713751_17950289325159645_4747988417414876577_n',
+  'SaveClip.App_708068151_17950289361159645_6348064851730677418_n',
+  '325393B2-6CCF-4B4F-8A84-1590201EB187',
+  '4D6A3361-7C95-43CD-9615-BB3093391510',
+  'SaveClip.App_707545115_17950289274159645_3520609879852235320_n',
+  'BC116D4A-19FA-4505-A4D6-098E4985A3B5',
+  'SaveClip.App_747086793_18128880079712357_7582728590635763687_n',
+  'IMG_2005.JPG',
+];
+
+const faq = [
+  ['A casa tem um número mínimo de convidados?', 'Para comemorações com a casa aberta ao público, não há número mínimo de convidados. Você pode reunir sua turma e aproveitar o Farofa!'],
+  ['Posso levar bolo?', 'Sim! Você pode levar seu bolo para celebrar esse momento com amigos e família.'],
+  ['Tem área reservada para o meu grupo?', 'Conte para a gente como você imagina a festa. Vamos alinhar as possibilidades de espaço e organização conforme a data e o formato do evento.'],
+  ['E se chover?', 'O Farofa conta com ambientes internos e externos. Converse com nossa equipe para entender as possibilidades de organização independente do clima'],
+];
+
+const faqLd = {
+  '@type': 'FAQPage',
+  mainEntity: faq.map(([q, a]) => ({ '@type': 'Question', name: q, acceptedAnswer: { '@type': 'Answer', text: a } })),
+};
+---
+
+<Base
+  title={title}
+  description={description}
+  ogImage={photo('IMG_2296')}
+  jsonLd={{ '@context': 'https://schema.org', '@graph': [jsonLd, faqLd] }}
+  theme="dark"
+>
+  <Fragment slot="head">
+    <link rel="preload" as="image" href={photo('IMG_2296')} fetchpriority="high" />
+    <script is:inline>
+      if ('IntersectionObserver' in window &&
+          !(window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches)) {
+        document.documentElement.classList.add('js-animar');
+      }
+    </script>
+  </Fragment>
+
+  <!-- ícones reutilizáveis (sprite inline) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <symbol id="i-whatsapp" viewBox="0 0 24 24"><path fill="currentColor" d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.46-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.2-.24-.58-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.3 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.42-.08-.12-.27-.2-.57-.34m-5.42 7.4h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.88 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41z"/></symbol>
+      <symbol id="i-pessoas" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="7.5" r="2.6"/><path d="M7.5 19.5V18a4.5 4.5 0 0 1 9 0v1.5"/><circle cx="5.5" cy="10" r="2"/><path d="M2 19.5v-1a3.5 3.5 0 0 1 4.6-3.3"/><circle cx="18.5" cy="10" r="2"/><path d="M22 19.5v-1a3.5 3.5 0 0 0-4.6-3.3"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- CABEÇALHO -->
+  <header class="cabecalho" id="cabecalho">
+    <div class="wrap">
+      <a class="logo" href="#topo" aria-label="Farofa, brasa e prosa — início">
+        <img src={`${cdn}/logo-farofa-creme.svg`} alt="Farofa — brasa &amp; prosa" width="894" height="290" />
+      </a>
+      <div class="cabecalho-acoes">
+        <a class="btn btn-brasa" href="#contato">Quero reservar</a>
+      </div>
+    </div>
+  </header>
+
+
+  <main>
+
+    <!-- PRIMEIRA DOBRA: HERO + FORMULÁRIO -->
+    <div class="primeira-dobra">
+      <div class="wrap hero-grade">
+        <section class="hero" id="topo">
+          <div class="hero-fundo">
+            <img src={photo('IMG_2296')} alt="Comemoração de aniversário no Farofa" loading="eager" fetchpriority="high" decoding="async" />
+          </div>
+          <div class="hero-texto">
+            <p class="local">Vila Leopoldina • São Paulo</p>
+            <h1>Aniversário é com brasa, música boa e gente querida</h1>
+            <p class="hero-sub">A lista de convidados é sua. O espaço para reunir todo mundo é com a gente</p>
+            <a class="btn btn-brasa hero-cta" href="#contato">Quero reservar</a>
+          </div>
+        </section>
+
+        <section class="form-topo" id="orcamento" aria-label="Quero reservar">
+          <div class="form-cartao">
+            <form
+              class="form-orcamento"
+              data-form-id="lead-form-topo"
+              data-submit-url={webhook}
+              data-grid-id="form-topo-campos"
+              data-success-id="form-topo-success"
+            >
+              <input name="website" type="text" style="display:none" tabindex="-1" autocomplete="off" />
+              <div class="campos" id="form-topo-campos">
+                {fields.map((f) => (
+                  <div class:list={['campo', f.full ? 'campo-full' : '']}>
+                    <label for={`form-field-${f.name}`}>
+                      {f.label}{f.hint && <> <span class="campo-hint">({f.hint})</span></>}
+                    </label>
+                    {f.type === 'select' ? (
+                      <div class="campo-select-wrap">
+                        <select
+                          id={`form-field-${f.name}`}
+                          name={f.name}
+                          required={f.required || undefined}
+                        >
+                          {f.options?.map((opt) => (
+                            <option value={opt.value} disabled={opt.disabled || undefined} selected={opt.selected || undefined}>
+                              {opt.label}
+                            </option>
+                          ))}
+                        </select>
+                        <svg class="campo-select-seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                      </div>
+                    ) : f.type === 'textarea' ? (
+                      <textarea
+                        id={`form-field-${f.name}`}
+                        name={f.name}
+                        placeholder={f.placeholder}
+                        rows={f.rows || 3}
+                      />
+                    ) : (
+                      <input
+                        id={`form-field-${f.name}`}
+                        name={f.name}
+                        type={f.type}
+                        placeholder={f.placeholder}
+                        required={f.required || undefined}
+                        data-datepicker={f.datepicker ? '' : undefined}
+                        autocomplete={autoMap[f.name] || (f.datepicker ? 'off' : undefined)}
+                        inputmode={f.type === 'tel' ? 'tel' : f.type === 'number' ? 'numeric' : undefined}
+                      />
+                    )}
+                  </div>
+                ))}
+                <div class="acao">
+                  <button class="btn btn-brasa" type="button">Quero reservar</button>
+                </div>
+              </div>
+            </form>
+            <div id="form-topo-success" class="form-success">
+              <div class="form-success-icon">✓</div>
+              <h3>Pedido enviado!</h3>
+              <p>Nossa equipe entrará em contato em breve.</p>
+            </div>
+            <p class="aviso-privacidade">Suas informações são utilizadas somente para retorno da sua reserva e nunca são compartilhadas.</p>
+          </div>
+        </section>
+      </div>
+    </div>
+
+    <!-- AUTORIDADE -->
+    <section class="autoridade" id="autoridade" aria-label="O espaço em números">
+      <div class="wrap">
+        <ul>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 8V3h5M16 3h5v5M21 16v5h-5M8 21H3v-5"/><path d="M8 8h8v8H8z" opacity=".55"/></svg>
+            <strong><span class="contador" data-alvo="1200">1.200</span> <span class="unidade">m²</span></strong>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12 9 6.5l6.5 5.5M4.5 10.3V20h9v-9.7M7.5 20v-4h3v4"/><circle cx="19" cy="6" r="2.2"/><path d="M19 1.6v.9M19 9.5v.9M14.6 6h.9M22.5 6h.9M15.9 2.9l.6.6M21.5 8.5l.6.6M22.1 2.9l-.6.6M16.5 8.5l-.6.6"/></svg>
+            <strong>Ambientes interno e externo</strong>
+          </li>
+          <li>
+            <svg aria-hidden="true"><use href="#i-pessoas"/></svg>
+            <strong>Sem reserva mínima</strong>
+          </li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- EXPERIÊNCIA 360° -->
+    <section class="secao experiencia" id="experiencia">
+      <div class="wrap experiencia-grade">
+        <div class="experiencia-texto">
+          <h2 class="titulo-secao"><span>Mais espaço para</span> <span>celebrar do</span> <span>seu jeito</span></h2>
+          <p class="texto-secao">Ambientes internos e externos, gastronomia e música boa para reunir sua turma e comemorar o aniversário sem complicação.</p>
+        </div>
+        <div class="experiencia-foto">
+          <img src={photo('SaveClip.App_707749976_17950289295159645_3600029713688050805_n')} alt="Convidados comemorando aniversário no Farofa" loading="lazy" decoding="async" />
+          <div class="selo-360" aria-hidden="true">
+            <svg class="anel" viewBox="0 0 200 200">
+              <defs><path id="circulo-selo" d="M100,100 m-76,0 a76,76 0 1,1 152,0 a76,76 0 1,1 -152,0"/></defs>
+              <text font-family="Architects Daughter, cursive" font-size="17" fill="currentColor" letter-spacing="1">
+                <textPath href="#circulo-selo" textLength="470" lengthAdjust="spacing">ambientes • gastronomia • música • prosa •</textPath>
+              </text>
+            </svg>
+            <span class="numero">360°</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DIFERENCIAIS -->
+    <section class="secao diferenciais" id="diferenciais">
+      <div class="wrap">
+        <h2 class="titulo-secao"><span>A combinação certa para</span> <span>uma comemoração completa</span></h2>
+        <ul class="lista-diferenciais">
+          {diferenciais.map((d) => (
+            <li>
+              <div class="diferencial-foto"><img src={photo(d.img)} alt={d.alt} loading="lazy" decoding="async" /></div>
+              <h3>{d.titulo}</h3>
+              <p>{d.texto}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </section>
+
+    <!-- GASTRONOMIA -->
+    <section class="secao gastronomia" id="gastronomia">
+      <div class="wrap gastronomia-topo">
+        <h2 class="titulo-secao">Comida na brasa e motivo de sobra para brindar</h2>
+        <div>
+          <p class="texto-secao">Espetos, cortes especiais, porções e acompanhamentos fazem parte da experiência gastronômica do Farofa. É só reunir sua turma, escolher as opções para a comemoração e aproveitar a festa.</p>
+        </div>
+      </div>
+      <div class="trilho-wrap">
+        <div class="trilho" id="trilho-gastronomia" tabindex="0" aria-label="Fotos da gastronomia do Farofa">
+          <div class="trilho-faixa">
+            {gastronomia.map(([n, alt]) => (
+              <figure><img src={photo(n)} alt={alt} loading="lazy" decoding="async" /></figure>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- GALERIA (carrossel) -->
+    <section class="secao galeria" id="galeria">
+      <div class="wrap">
+        <h2 class="titulo-secao">Quem veio, tem história para contar</h2>
+        <div class="galeria-carrossel">
+          <div class="galeria-slider" id="galeria-slider" tabindex="0" aria-label="Fotos de comemorações no Farofa. Arraste para ver mais">
+            <ul class="galeria-faixa" id="galeria-grade">
+              {galeria.map((n, i) => (
+                <li><button class="galeria-item" type="button" aria-label={`Ampliar foto ${i + 1}`}><img src={photo(n)} alt={`Comemoração no Farofa — foto ${i + 1}`} loading="lazy" decoding="async" draggable="false" /></button></li>
+              ))}
+            </ul>
+          </div>
+          <div class="galeria-controles">
+            <button class="seta seta-clara" type="button" data-galeria="anterior" aria-label="Fotos anteriores"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></button>
+            <button class="seta seta-clara" type="button" data-galeria="proximo" aria-label="Próximas fotos"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
+          </div>
+        </div>
+      </div>
+
+      <dialog class="lightbox" id="lightbox" aria-label="Foto ampliada">
+        <img id="lightbox-img" src="" alt="" />
+        <button class="lightbox-fechar" type="button" data-acao="fechar" aria-label="Fechar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+        <button class="lightbox-ant"   type="button" data-acao="anterior" aria-label="Foto anterior"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 5-7 7 7 7"/></svg></button>
+        <button class="lightbox-prox"  type="button" data-acao="proximo"  aria-label="Próxima foto"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 5 7 7-7 7"/></svg></button>
+        <p class="lightbox-contador" id="lightbox-contador"></p>
+      </dialog>
+    </section>
+
+    <!-- FAQ -->
+    <section class="secao faq" id="faq">
+      <div class="wrap faq-grade">
+        <h2 class="titulo-secao">Dúvidas antes de chamar a turma?</h2>
+        <div class="faq-lista">
+          {faq.map(([q, a]) => (
+            <details>
+              <summary>{q}</summary>
+              <p>{a}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- LOCALIZAÇÃO -->
+    <section class="secao localizacao" id="localizacao">
+      <div class="wrap localizacao-grade">
+        <h2 class="titulo-secao">Um espaço na Vila Leopoldina para juntar quem você gosta</h2>
+        <address class="endereco">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21.5s-7-6.2-7-11.5a7 7 0 0 1 14 0c0 5.3-7 11.5-7 11.5z"/><circle cx="12" cy="10" r="2.5"/></svg>
+          <span>R. Guaipá, 551 - Vila Leopoldina,<br />São Paulo - SP, 05089-001</span>
+        </address>
+        <div class="mapa">
+          <iframe src="https://www.google.com/maps?q=R.+Guaip%C3%A1,+551+-+Vila+Leopoldina,+S%C3%A3o+Paulo+-+SP,+05089-001&z=16&output=embed" title="Mapa com a localização do Farofa na R. Guaipá, 551, Vila Leopoldina" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+        </div>
+        <div class="localizacao-botoes">
+          <a class="btn btn-brasa" href="https://www.google.com/maps/search/?api=1&query=R.%20Guaip%C3%A1%2C%20551%20-%20Vila%20Leopoldina%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2005089-001" target="_blank" rel="noopener">Abrir no Google Maps</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTATO -->
+    <section class="secao contato" id="contato">
+      <div class="wrap contato-grade">
+        <div class="contato-texto">
+          <h2 class="titulo-secao">Chame a turma. A gente combina o resto</h2>
+          <p class="texto-secao">Preencha o formulário e, em breve, nosso time entrará em contato com você.</p>
+        </div>
+
+        <div class="form-cartao">
+          <form
+            class="form-orcamento"
+            data-form-id="lead-form-contato"
+            data-submit-url={webhook}
+            data-grid-id="form-contato-campos"
+            data-success-id="form-contato-success"
+          >
+            <input name="website" type="text" style="display:none" tabindex="-1" autocomplete="off" />
+            <div class="campos" id="form-contato-campos">
+              {fields.map((f) => (
+                <div class:list={['campo', f.full ? 'campo-full' : '']}>
+                  <label for={`form-field-c-${f.name}`}>
+                    {f.label}{f.hint && <> <span class="campo-hint">({f.hint})</span></>}
+                  </label>
+                  {f.type === 'select' ? (
+                    <div class="campo-select-wrap">
+                      <select
+                        id={`form-field-c-${f.name}`}
+                        name={f.name}
+                        required={f.required || undefined}
+                      >
+                        {f.options?.map((opt) => (
+                          <option value={opt.value} disabled={opt.disabled || undefined} selected={opt.selected || undefined}>
+                            {opt.label}
+                          </option>
+                        ))}
+                      </select>
+                      <svg class="campo-select-seta" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+                    </div>
+                  ) : f.type === 'textarea' ? (
+                    <textarea
+                      id={`form-field-c-${f.name}`}
+                      name={f.name}
+                      placeholder={f.placeholder}
+                      rows={f.rows || 3}
+                    />
+                  ) : (
+                    <input
+                      id={`form-field-c-${f.name}`}
+                      name={f.name}
+                      type={f.type}
+                      placeholder={f.placeholder}
+                      required={f.required || undefined}
+                      data-datepicker={f.datepicker ? '' : undefined}
+                      autocomplete={autoMap[f.name] || (f.datepicker ? 'off' : undefined)}
+                      inputmode={f.type === 'tel' ? 'tel' : f.type === 'number' ? 'numeric' : undefined}
+                    />
+                  )}
+                </div>
+              ))}
+              <div class="acao">
+                <button class="btn btn-brasa" type="button">Quero reservar</button>
+              </div>
+            </div>
+          </form>
+          <div id="form-contato-success" class="form-success">
+            <div class="form-success-icon">✓</div>
+            <h3>Pedido enviado!</h3>
+            <p>Nossa equipe entrará em contato em breve.</p>
+          </div>
+          <p class="aviso-privacidade">Suas informações são utilizadas somente para retorno da sua reserva e nunca são compartilhadas.</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="rodape">
+    <div class="wrap">
+      <div class="rodape-grade">
+        <a class="rodape-logo" href="#topo" aria-label="Voltar ao início">
+          <img src={`${cdn}/logo-farofa-creme.svg`} alt="Farofa — brasa &amp; prosa" width="894" height="290" loading="lazy" />
+        </a>
+      </div>
+      <div class="rodape-base">
+        <span>© 2026 Farofa. Todos os direitos reservados.</span>
+        <span>Desenvolvido por Dmove</span>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Barra fixa (mobile) -->
+  <div class="barra-mobile" id="barra-mobile">
+    <a class="btn btn-brasa btn-brasa-full" href="#contato">Quero reservar</a>
+  </div>
+
+</Base>
+
+</Base>
+
+<style is:global>
+/* ── Fonte própria ─────────────────────────────────────────── */
+@font-face {
+  font-family: "TAN Harmoni";
+  src: url("/fonts/tan-harmoni.woff2") format("woff2"),
+       url("/fonts/tan-harmoni.ttf")   format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ── Tokens do projeto (sobrepõe o global.css) ─────────────── */
+:root {
+  --cor-brasa:        #902601;
+  --cor-brasa-escura: #6d1c00;
+  --cor-caramelo:     #94491e;
+  --cor-creme:        #f4eed2;
+  --cor-creme-2:      #ebe2bf;
+  --cor-preto:        #000000;
+  --cor-texto-suave:  rgba(0, 0, 0, 0.72);
+  --cor-creme-suave:  rgba(244, 238, 210, 0.78);
+  --cor-linha:        rgba(0, 0, 0, 0.16);
+  --cor-linha-clara:  rgba(244, 238, 210, 0.22);
+  --cor-campo:        #fffcef;
+  --fonte-titulo:    "TAN Harmoni", "Playfair Display", Georgia, serif;
+  --fonte-texto:     "Quicksand", "Trebuchet MS", system-ui, sans-serif;
+  --fonte-manuscrita:"Architects Daughter", "Comic Neue", "Segoe Print", cursive;
+
+  --largura-max:    1240px;
+  --gutter:         clamp(20px, 4vw, 48px);
+  --espaco-secao:   clamp(72px, 9vw, 120px);
+  --raio:           6px;
+
+  /* alinha com o sistema de forms.ts */
+  --color-primary: var(--cor-brasa);
+}
+
+/* ── Base ──────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--cor-creme);
+  color: var(--cor-preto);
+  font-family: var(--fonte-texto);
+  font-weight: 500;
+  font-size: 17px;
+  line-height: 1.36;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: clip;
+}
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+button { font: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--cor-caramelo); outline-offset: 3px; }
+.visualmente-oculto { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+.wrap { width: 100%; max-width: var(--largura-max); margin: 0 auto; padding-left: var(--gutter); padding-right: var(--gutter); }
+.secao { padding-block: var(--espaco-secao); }
+
+/* ── Tipografia ────────────────────────────────────────────── */
+h1, h2, h3 { font-family: var(--fonte-titulo); font-weight: 400; margin: 0; text-wrap: balance; }
+.titulo-secao { font-size: clamp(36px, 4.6vw, 64px); line-height: 0.9; letter-spacing: 0.01em; text-transform: uppercase; }
+.texto-secao  { margin: 0; max-width: 56ch; font-size: clamp(16px, 1.25vw, 18px); color: var(--cor-texto-suave); }
+
+/* ── Botões ────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 10px;
+  border: 0; border-radius: var(--raio);
+  padding: 16px 28px;
+  font-family: var(--fonte-texto); font-weight: 700; font-size: 16px; line-height: 1.02;
+  text-decoration: none; text-align: center;
+  transition: background-color .2s ease, color .2s ease, transform .2s ease;
+}
+.btn:active { transform: translateY(1px); }
+.btn-brasa    { background: var(--cor-brasa);        color: var(--cor-creme); }
+.btn-brasa:hover  { background: var(--cor-brasa-escura); }
+.btn-creme    { background: var(--cor-creme);        color: var(--cor-brasa); }
+.btn-creme:hover  { background: #fff8dc; }
+.btn-contorno { background: transparent; color: inherit; box-shadow: inset 0 0 0 1.5px currentColor; }
+.btn-contorno:hover { background: rgba(0,0,0,.06); }
+.btn svg { width: 20px; height: 20px; flex: none; }
+
+/* ── Cabeçalho ─────────────────────────────────────────────── */
+.cabecalho {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 50;
+  padding-top: env(safe-area-inset-top, 0px);
+  transition: background-color .3s ease, box-shadow .3s ease;
+}
+.cabecalho .wrap { display: flex; align-items: center; justify-content: space-between; gap: 24px; height: 84px; transition: height .3s ease; }
+.cabecalho.solido { background: var(--cor-preto); box-shadow: 0 1px 0 var(--cor-linha-clara); }
+.cabecalho.solido .wrap { height: 68px; }
+.cabecalho .logo img { width: 132px; height: auto; transition: width .3s ease; }
+.cabecalho.solido .logo img { width: 112px; }
+.cabecalho-acoes { display: flex; align-items: center; gap: 22px; opacity: 0; pointer-events: none; transition: opacity .3s ease; }
+.cabecalho-acoes.visivel { opacity: 1; pointer-events: auto; }
+.cabecalho .btn { padding: 12px 20px; font-size: 15px; }
+
+/* ── Hero / Primeira dobra ─────────────────────────────────── */
+.primeira-dobra {
+  position: relative; isolation: isolate;
+  color: var(--cor-creme);
+  padding-top: calc(130px + env(safe-area-inset-top, 0px));
+  padding-bottom: clamp(56px, 7vw, 96px);
+  overflow: hidden;
+}
+.hero, .form-topo { min-width: 0; }
+.hero-fundo { position: absolute; inset: 0; z-index: -1; overflow: hidden; }
+.hero-fundo img { width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+.hero-fundo::after {
+  content: ""; position: absolute; inset: 0;
+  background:
+    linear-gradient(90deg, rgba(0,0,0,.86) 0%, rgba(0,0,0,.66) 46%, rgba(0,0,0,.30) 100%),
+    linear-gradient(180deg, rgba(0,0,0,.55) 0%, rgba(0,0,0,0) 30%, rgba(0,0,0,.25) 100%);
+}
+.hero-grade { display: grid; grid-template-columns: minmax(0, 1.08fr) minmax(0, 0.92fr); gap: clamp(32px, 5vw, 80px); align-items: center; }
+.hero-texto { min-width: 0; }
+.local { margin: 0 0 22px; font-family: var(--fonte-texto); font-weight: 600; font-size: clamp(16px, 1.3vw, 19px); line-height: 1.2; letter-spacing: .02em; }
+.hero h1 { font-size: clamp(54px, 6.6vw, 98px); line-height: 0.88; letter-spacing: 0.01em; text-transform: uppercase; }
+.hero-sub { margin: 26px 0 0; max-width: 34ch; font-size: clamp(17px, 1.45vw, 21px); line-height: 1.275; color: var(--cor-creme-suave); }
+
+/* ── Formulário ────────────────────────────────────────────── */
+.form-cartao {
+  background: var(--cor-creme); color: var(--cor-preto);
+  border-radius: 10px;
+  padding: clamp(24px, 2.6vw, 36px);
+  box-shadow: 0 30px 60px -20px rgba(0,0,0,.55);
+  min-width: 0;
+}
+.form-titulo { font-family: var(--fonte-titulo); font-size: clamp(30px, 2.6vw, 38px); line-height: 0.85; margin: 0 0 20px; color: var(--cor-brasa); }
+.form-orcamento .campos { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 16px; align-items: end; }
+.campo { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.campo-full { grid-column: 1 / -1; }
+.campo label { font-size: 14px; font-weight: 700; line-height: 1.02; }
+.campo-hint { font-weight: 400; opacity: .7; }
+.campo input, .campo select, .campo textarea {
+  width: 100%; min-width: 0;
+  font-family: var(--fonte-texto); font-size: 16px; font-weight: 600; color: var(--cor-preto);
+  background: var(--cor-campo);
+  border: 1.5px solid rgba(0,0,0,.22); border-radius: var(--raio);
+  padding: 13px 14px;
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.campo input::placeholder, .campo textarea::placeholder { color: rgba(0,0,0,.42); font-weight: 500; }
+.campo input:focus, .campo select:focus, .campo textarea:focus {
+  outline: none;
+  border-color: var(--cor-brasa);
+  box-shadow: 0 0 0 3px rgba(144,38,1,.18);
+}
+.campo textarea { resize: vertical; min-height: 80px; }
+
+/* Select customizado */
+.campo-select-wrap { position: relative; }
+.campo-select-wrap select { padding-right: 36px; appearance: none; -webkit-appearance: none; cursor: pointer; }
+.campo-select-seta { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); width: 18px; height: 18px; pointer-events: none; color: var(--cor-caramelo); }
+
+.acao { grid-column: 1 / -1; }
+.form-orcamento .btn { width: 100%; padding: 15px 20px; }
+.aviso-privacidade { margin: 14px 0 0; font-size: 13px; line-height: 1.232; color: var(--cor-texto-suave); }
+
+/* Estado de sucesso do formulário */
+.form-success { display: none; padding: 24px 0; text-align: center; }
+.form-success.active { display: block; }
+.form-success-icon { width: 54px; height: 54px; margin: 0 auto 16px; border-radius: 50%; background: var(--cor-brasa); color: var(--cor-creme); display: grid; place-items: center; font-size: 22px; }
+.form-success h3 { font-family: var(--fonte-titulo); font-size: 28px; color: var(--cor-brasa); margin: 0 0 8px; text-transform: uppercase; }
+.form-success p { font-size: 15px; color: var(--cor-texto-suave); margin: 0; }
+
+/* Erros de campo (forms.ts) */
+.field-error { color: #c0392b; font-size: 0.78rem; margin-top: 4px; display: none; }
+.field-error.visible { display: block; }
+
+/* ── Autoridade ────────────────────────────────────────────── */
+.autoridade { background: var(--cor-brasa); color: var(--cor-creme); }
+.autoridade ul { list-style: none; margin: 0; padding: 0; display: flex; }
+.autoridade li { flex: 1 1 auto; display: flex; align-items: center; justify-content: center; gap: 16px; padding: 34px 28px; text-align: left; }
+.autoridade .unidade { text-transform: none; }
+.autoridade li:not(:last-child) strong { white-space: nowrap; }
+.contador { display: inline-block; text-align: right; font-variant-numeric: tabular-nums; }
+.autoridade.animar li { opacity: 0; transform: translateY(16px); }
+.autoridade.animar svg { transform: scale(.4); opacity: 0; }
+.autoridade.animado li { opacity: 1; transform: none; transition: opacity .7s ease, transform .7s cubic-bezier(.2, .7, .2, 1); }
+.autoridade.animado svg { opacity: .9; transform: none; transition: opacity .5s ease, transform .6s cubic-bezier(.34, 1.56, .64, 1); }
+.autoridade.animado li:nth-child(2), .autoridade.animado li:nth-child(2) svg { transition-delay: .18s; }
+.autoridade.animado li:nth-child(3), .autoridade.animado li:nth-child(3) svg { transition-delay: .36s; }
+.autoridade li + li { border-left: 1px solid var(--cor-linha-clara); }
+.autoridade svg { width: 34px; height: 34px; flex: none; opacity: .9; }
+.autoridade strong { font-family: var(--fonte-titulo); font-weight: 400; font-size: clamp(24px, 2.4vw, 34px); line-height: 0.892; text-transform: uppercase; letter-spacing: .01em; }
+
+/* ── Experiência 360° ──────────────────────────────────────── */
+.experiencia-grade { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: clamp(40px, 6vw, 96px); align-items: center; }
+.experiencia-texto { min-width: 0; }
+.experiencia-texto h2 span { display: block; white-space: nowrap; }
+.experiencia-texto .texto-secao { margin-top: 26px; max-width: 46ch; }
+.experiencia-foto { position: relative; min-width: 0; }
+.experiencia-foto img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: var(--raio); }
+.selo-360 {
+  --tamanho-selo: clamp(128px, 12vw, 168px);
+  position: absolute; right: calc(var(--tamanho-selo) / -4); top: calc(var(--tamanho-selo) / -4);
+  width: var(--tamanho-selo); aspect-ratio: 1;
+  border-radius: 50%;
+  background: var(--cor-brasa); color: var(--cor-creme);
+  display: grid; place-items: center;
+  box-shadow: 0 0 0 6px var(--cor-creme);
+}
+.selo-360 svg.anel { position: absolute; inset: 0; width: 100%; height: 100%; animation: girar 36s linear infinite; }
+.selo-360 .numero { font-family: var(--fonte-titulo); font-size: clamp(34px, 3.2vw, 46px); line-height: 0.85; }
+@keyframes girar { to { transform: rotate(360deg); } }
+
+/* ── Eventos ───────────────────────────────────────────────── */
+.eventos { background: var(--cor-creme-2); }
+.eventos .titulo-secao { text-align: center; }
+.eventos .titulo-secao span { display: block; }
+.lista-eventos {
+  list-style: none; margin: clamp(40px, 5vw, 64px) 0 0; padding: 0;
+  display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1.5px solid var(--cor-preto);
+}
+.lista-eventos li { display: flex; align-items: center; gap: 20px; padding: 30px 24px 30px 0; border-bottom: 1px solid var(--cor-linha); font-family: var(--fonte-texto); font-weight: 700; font-size: clamp(17px, 1.35vw, 20px); line-height: 1.2; }
+.lista-eventos li:not(:nth-child(3n+1)) { padding-left: 24px; border-left: 1px solid var(--cor-linha); }
+.icone-evento { width: 64px; height: 64px; flex: none; border-radius: 50%; background: var(--cor-brasa); color: var(--cor-creme); display: grid; place-items: center; }
+.icone-evento svg { width: 32px; height: 32px; }
+
+/* ── Diferenciais ──────────────────────────────────────────── */
+.diferenciais { background: var(--cor-preto); color: var(--cor-creme); }
+.diferenciais .titulo-secao { text-align: center; }
+.diferenciais .titulo-secao span { display: block; }
+.lista-diferenciais { list-style: none; margin: clamp(40px, 5vw, 64px) 0 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 2.5vw, 36px); }
+.lista-diferenciais li { min-width: 0; text-align: center; }
+.diferencial-foto { border-radius: var(--raio); overflow: hidden; }
+.lista-diferenciais img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; transition: transform .7s cubic-bezier(.2, .7, .2, 1), filter .7s ease; }
+@media (hover: hover) { .lista-diferenciais li:hover img { transform: scale(1.07); filter: brightness(1.08) saturate(1.08); } }
+.lista-diferenciais h3 { margin: 24px 0 10px; font-size: clamp(28px, 2.4vw, 34px); line-height: 0.892; color: var(--cor-creme); }
+.lista-diferenciais p { margin: 0 auto; font-size: 16px; color: var(--cor-creme-suave); max-width: 38ch; }
+
+/* ── Gastronomia ───────────────────────────────────────────── */
+.gastronomia { background: var(--cor-brasa); color: var(--cor-creme); overflow: hidden; }
+.gastronomia-topo { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 5vw, 80px); align-items: end; }
+.gastronomia .texto-secao { color: var(--cor-creme-suave); }
+.trilho-wrap { margin-top: clamp(36px, 4.5vw, 56px); }
+.trilho { overflow-x: auto; scrollbar-width: none; outline-offset: -3px; }
+.trilho::-webkit-scrollbar { display: none; }
+.trilho-faixa { display: flex; gap: 16px; width: max-content; padding-right: 16px; }
+.trilho.infinito { overflow: hidden; }
+.trilho.infinito .trilho-faixa { animation: deslizar var(--duracao-trilho, 70s) linear infinite; }
+.trilho.infinito:hover .trilho-faixa,
+.trilho.infinito:focus-within .trilho-faixa,
+.trilho.infinito.pausado .trilho-faixa { animation-play-state: paused; }
+@keyframes deslizar { to { transform: translateX(-50%); } }
+.trilho figure { margin: 0; flex: 0 0 clamp(240px, 24vw, 320px); }
+.trilho img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--raio); }
+
+/* ── Clientes ──────────────────────────────────────────────── */
+.clientes-grade { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(40px, 6vw, 96px); align-items: center; }
+.clientes-texto { min-width: 0; grid-column: 2; grid-row: 1; }
+.clientes .texto-secao { margin-top: 24px; }
+.logos-carrossel { min-width: 0; grid-column: 1; grid-row: 1; }
+.logos-slider { overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; cursor: grab; user-select: none; -webkit-user-select: none; }
+.logos-slider::-webkit-scrollbar { display: none; }
+.logos-slider.arrastando { cursor: grabbing; scroll-snap-type: none; }
+.logos { list-style: none; margin: 0; padding: 0; display: flex; }
+.logos li { flex: 0 0 calc(100% / 2.3); display: grid; place-items: center; height: clamp(180px, 15vw, 220px); padding: 12px; scroll-snap-align: start; }
+.logos img { width: auto; height: 104px; max-width: 100%; object-fit: contain; opacity: .85; pointer-events: none; -webkit-user-drag: none; }
+.logos img.logo-natura    { height: 150px; }
+.logos img.logo-nuvemshop { height: 132px; }
+.logos img.logo-siemens   { height: 44px;  }
+.logos img.logo-quata, .logos img.logo-swift { height: 96px; }
+.logos-controles { display: flex; justify-content: center; gap: 10px; margin-top: 18px; }
+.seta { width: 48px; height: 48px; border-radius: 50%; border: 1.5px solid var(--cor-brasa); background: transparent; color: var(--cor-brasa); display: grid; place-items: center; transition: background-color .2s ease, color .2s ease; }
+.seta:hover { background: var(--cor-brasa); color: var(--cor-creme); }
+.seta svg { width: 20px; height: 20px; }
+
+/* ── Galeria ───────────────────────────────────────────────── */
+.galeria { background: var(--cor-preto); color: var(--cor-creme); }
+.galeria .titulo-secao { text-align: center; }
+.galeria-grade {
+  --gap-mosaico: 14px;
+  --linha-mosaico: calc((min(100vw, var(--largura-max)) - 2 * var(--gutter) - 3 * var(--gap-mosaico)) / 4);
+  margin-top: clamp(40px, 5vw, 64px);
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: var(--linha-mosaico); grid-auto-flow: dense; gap: var(--gap-mosaico);
+}
+.galeria-item { display: block; width: 100%; height: 100%; padding: 0; border: 0; background: #1a1a1a; border-radius: var(--raio); overflow: hidden; }
+.galeria-item.grande { grid-column: span 2; grid-row: span 2; }
+.galeria-item.alto   { grid-row: span 2; }
+.galeria-duplo {
+  grid-column: 1 / -1; grid-row: span 2;
+  display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 1fr 1fr; gap: var(--gap-mosaico);
+}
+.galeria-duplo .galeria-item { height: 100%; }
+.galeria-duplo-grande { grid-row: span 2; }
+.galeria-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.galeria-item:hover img { transform: scale(1.04); }
+
+.lightbox { border: 0; padding: 0; margin: 0; width: 100vw; height: 100vh; max-width: none; max-height: none; background: rgba(0,0,0,.94); color: var(--cor-creme); }
+.lightbox[open] { display: grid; place-items: center; }
+.lightbox::backdrop { background: rgba(0,0,0,.94); }
+.lightbox img { max-width: min(92vw, 1400px); max-height: 84vh; width: auto; height: auto; border-radius: 4px; }
+.lightbox-fechar, .lightbox-ant, .lightbox-prox { position: fixed; border: 0; background: rgba(244,238,210,.12); color: var(--cor-creme); width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; }
+.lightbox-fechar { top: calc(16px + env(safe-area-inset-top, 0px)); right: 16px; }
+.lightbox-ant { left: 16px; top: 50%; transform: translateY(-50%); }
+.lightbox-prox { right: 16px; top: 50%; transform: translateY(-50%); }
+.lightbox button:hover { background: rgba(244,238,210,.24); }
+.lightbox svg { width: 24px; height: 24px; }
+.lightbox-contador { pointer-events: none; position: fixed; bottom: calc(18px + env(safe-area-inset-bottom, 0px)); left: 0; right: 0; text-align: center; font-size: 14px; color: var(--cor-creme-suave); margin: 0; }
+
+/* ── Localização ───────────────────────────────────────────── */
+.localizacao-grade { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.localizacao .titulo-secao { max-width: 24ch; }
+.endereco { display: flex; gap: 12px; align-items: flex-start; justify-content: center; text-align: left; margin: 26px 0 0; font-style: normal; font-size: clamp(17px, 1.4vw, 20px); font-weight: 600; line-height: 1.275; }
+.endereco svg { width: 26px; height: 26px; color: var(--cor-brasa); flex: none; margin-top: 2px; }
+.mapa { margin-top: clamp(32px, 4vw, 48px); }
+.localizacao-botoes { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin-top: 28px; }
+.mapa { min-width: 0; width: 100%; height: clamp(360px, 34vw, 480px); border-radius: var(--raio); overflow: hidden; background: var(--cor-creme-2); box-shadow: 0 0 0 1px var(--cor-linha), 0 24px 48px -24px rgba(0,0,0,.35); }
+.mapa iframe { display: block; width: 100%; height: 100%; border: 0; }
+
+/* ── Contato ───────────────────────────────────────────────── */
+.contato { background: var(--cor-brasa); color: var(--cor-creme); }
+.contato-grade { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(40px, 6vw, 96px); align-items: center; }
+.contato-texto { min-width: 0; }
+.contato .texto-secao { margin-top: 24px; color: var(--cor-creme-suave); }
+
+/* ── Rodapé ────────────────────────────────────────────────── */
+.rodape { background: var(--cor-preto); color: var(--cor-creme-suave); padding-block: 56px 40px; font-size: 14px; }
+.rodape-grade { display: flex; justify-content: center; }
+.rodape-logo img { width: 150px; height: auto; }
+.rodape-base { margin-top: 36px; padding-top: 22px; border-top: 1px solid var(--cor-linha-clara); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 13px; }
+
+/* ── Barra mobile ───────────────────────────────────────────── */
+.barra-mobile {
+  position: fixed; left: 0; right: 0; bottom: 0; z-index: 60;
+  display: none; gap: 10px;
+  padding: 10px 16px calc(10px + env(safe-area-inset-bottom, 0px));
+  background: var(--cor-preto);
+  box-shadow: 0 -8px 24px -8px rgba(0,0,0,.5);
+  transform: translateY(110%); transition: transform .3s ease;
+}
+.barra-mobile.visivel { transform: translateY(0); }
+.barra-mobile .btn { flex: 1; padding: 15px 16px; }
+.barra-mobile .btn-brasa-full { text-align: center; }
+
+/* ── Responsivo ────────────────────────────────────────────── */
+@media (max-width: 1080px) {
+  .hero-grade { grid-template-columns: minmax(0, 1fr); }
+  .hero-texto { max-width: 680px; }
+  .form-cartao { max-width: 680px; }
+  .lista-eventos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .lista-eventos li:not(:nth-child(3n+1)) { padding-left: 0; border-left: 0; }
+  .lista-eventos li:nth-child(even) { padding-left: 24px; border-left: 1px solid var(--cor-linha); }
+  .experiencia-grade, .clientes-grade, .contato-grade { grid-template-columns: minmax(0, 1fr); }
+  .clientes-texto, .logos-carrossel { grid-column: auto; grid-row: auto; }
+  .experiencia-foto img { aspect-ratio: 16 / 9; }
+  .selo-360 { right: 16px; }
+  .autoridade li { padding: 28px 16px; gap: 12px; }
+  .autoridade svg { width: 28px; height: 28px; }
+  .mapa { height: auto; aspect-ratio: 16 / 10; }
+}
+
+@media (max-width: 760px) {
+  body { font-size: 16px; }
+  .cabecalho .wrap { height: 68px; }
+  .cabecalho .logo img, .cabecalho.solido .logo img { width: 104px; }
+  .cabecalho-acoes { display: none; }
+  .primeira-dobra { padding: 0; }
+  .hero-grade { display: block; }
+  .hero {
+    position: relative; isolation: isolate;
+    margin-inline: calc(-1 * var(--gutter)); padding-inline: var(--gutter);
+    padding-top: calc(112px + env(safe-area-inset-top, 0px)); padding-bottom: 64px;
+  }
+  .hero-fundo::after { background: linear-gradient(180deg, rgba(0,0,0,.72) 0%, rgba(0,0,0,.6) 45%, rgba(0,0,0,.82) 100%); }
+  .hero-fundo img { object-position: 38% 50%; }
+  .form-topo { margin-inline: calc(-1 * var(--gutter)); padding: 48px var(--gutter) 56px; background: var(--cor-creme); color: var(--cor-preto); }
+  .form-topo .form-cartao { background: none; box-shadow: none; padding: 0; border-radius: 0; max-width: none; }
+  .form-topo .form-titulo { font-size: 40px; margin-bottom: 24px; }
+  .form-orcamento .campos { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+  .autoridade ul { flex-direction: column; padding-block: 8px; }
+  .autoridade li { justify-content: flex-start; padding: 18px 4px; }
+  .autoridade li + li { border-left: 0; border-top: 1px solid var(--cor-linha-clara); }
+  .experiencia-foto img { aspect-ratio: 4 / 3; }
+  .selo-360 { --tamanho-selo: 112px; right: 12px; top: -22px; }
+  .eventos .titulo-secao span, .diferenciais .titulo-secao span { display: inline; }
+  .lista-eventos li { flex-direction: column; align-items: flex-start; gap: 14px; padding: 24px 16px 24px 0; font-size: 16px; }
+  .lista-eventos li:nth-child(even) { padding-left: 16px; }
+  .icone-evento { width: 54px; height: 54px; }
+  .icone-evento svg { width: 28px; height: 28px; }
+  .lista-diferenciais { grid-template-columns: minmax(0, 1fr); gap: 44px; }
+  .lista-diferenciais img { aspect-ratio: 4 / 3; }
+  .lista-diferenciais h3 { margin-top: 18px; }
+  .gastronomia-topo { grid-template-columns: minmax(0, 1fr); }
+  .trilho figure { flex-basis: 70vw; }
+  .trilho-faixa { gap: 10px; padding-right: 10px; }
+  .trilho { --duracao-trilho: 50s; }
+  .logos li { flex-basis: calc(100% / 1.6); height: 160px; padding: 10px; }
+  .logos img { height: 76px; }
+  .logos img.logo-natura    { height: 108px; }
+  .logos img.logo-nuvemshop { height: 94px;  }
+  .logos img.logo-siemens   { height: 32px;  }
+  .logos img.logo-quata, .logos img.logo-swift { height: 68px; }
+  .galeria-grade {
+    --gap-mosaico: 10px;
+    --linha-mosaico: calc((100vw - 2 * var(--gutter) - var(--gap-mosaico)) / 2);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .galeria-item.grande { grid-row: span 1; }
+  .galeria-duplo { grid-template-columns: 1fr 1fr; }
+  .lightbox-ant, .lightbox-prox { top: auto; bottom: calc(10px + env(safe-area-inset-bottom, 0px)); transform: none; }
+  .mapa { aspect-ratio: 4 / 3; }
+  .rodape { padding-bottom: calc(110px + env(safe-area-inset-bottom, 0px)); }
+  .rodape-base { flex-direction: column; align-items: center; text-align: center; gap: 6px; }
+  .barra-mobile { display: flex; }
+  main .titulo-secao, main .texto-secao, .hero-texto, .experiencia-texto, .gastronomia-topo,
+  .clientes-texto, .contato-texto, .form-cartao { text-align: center; }
+  main .texto-secao, .hero-sub { margin-inline: auto; }
+  .hero-texto { margin-inline: auto; }
+  .campo label { text-align: center; }
+  .campo input, .campo select, .campo textarea { text-align: center; }
+  .autoridade li { justify-content: center; text-align: center; }
+  .lista-eventos li { align-items: center; text-align: center; padding-inline: 12px; }
+  .lista-eventos li:nth-child(even) { padding-left: 12px; }
+  .endereco { flex-direction: column; align-items: center; gap: 8px; text-align: center; }
+}
+
+@media (max-width: 640px) {
+  .galeria-duplo { grid-template-columns: 1fr; grid-template-rows: auto; }
+  .galeria-duplo-grande { grid-row: auto; }
+}
+
+@media (max-width: 420px) {
+  .lista-eventos li { font-size: 15px; }
+}
+
+/* ── Animações de rolagem ──────────────────────────────────── */
+.js-animar [data-revelar] { opacity: 0; transform: translate3d(0, 34px, 0); transition: opacity .9s ease, transform 1s cubic-bezier(.2, .7, .2, 1); transition-delay: var(--atraso, 0ms); }
+.js-animar [data-revelar="esquerda"] { transform: translate3d(-48px, 0, 0); }
+.js-animar [data-revelar="direita"]  { transform: translate3d(48px, 0, 0); }
+.js-animar [data-revelar="zoom"]     { transform: scale(.94); }
+.js-animar [data-revelar].visivel    { opacity: 1; transform: none; }
+.hero-fundo img { will-change: transform; }
+
+@media (max-width: 760px) {
+  .js-animar [data-revelar="esquerda"],
+  .js-animar [data-revelar="direita"] { transform: translate3d(0, 34px, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .trilho.infinito { overflow-x: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* ── Flatpickr: adapta ao tema Farofa ──────────────────────── */
+.flatpickr-calendar {
+  font-family: var(--fonte-texto) !important;
+  border-radius: var(--raio) !important;
+  box-shadow: 0 12px 32px -8px rgba(0,0,0,.35) !important;
+}
+.flatpickr-day.selected, .flatpickr-day.selected:hover {
+  background: var(--cor-brasa) !important;
+  border-color: var(--cor-brasa) !important;
+}
+.flatpickr-day:hover { background: var(--cor-creme-2) !important; }
+
+/* ── Aniversários: ajustes ─────────────────────────────────── */
+.hero-cta { margin-top: 28px; }
+.experiencia-foto img { aspect-ratio: 4 / 3; object-fit: cover; }
+.lista-diferenciais { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.lista-diferenciais h3 { font-size: clamp(26px, 2.1vw, 32px); }
+.diferencial-foto img, .trilho img { background: #1a1a1a; }
+
+/* Galeria em carrossel */
+.galeria-slider { margin-top: clamp(40px, 5vw, 64px); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; cursor: grab; user-select: none; -webkit-user-select: none; }
+.galeria-slider::-webkit-scrollbar { display: none; }
+.galeria-slider.arrastando { cursor: grabbing; scroll-snap-type: none; }
+.galeria-faixa { list-style: none; margin: 0; padding: 0; display: flex; gap: 14px; }
+.galeria-faixa li { flex: 0 0 clamp(240px, 26vw, 360px); scroll-snap-align: start; }
+.galeria-item { aspect-ratio: 4 / 5; }
+.galeria-item img { pointer-events: none; -webkit-user-drag: none; }
+.galeria-controles { display: flex; justify-content: center; gap: 10px; margin-top: 22px; }
+.seta-clara { border-color: var(--cor-creme); color: var(--cor-creme); }
+.seta-clara:hover { background: var(--cor-creme); color: var(--cor-brasa); }
+
+/* FAQ */
+.faq { background: var(--cor-creme-2); }
+.faq-grade { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 96px); align-items: start; }
+.faq-lista { border-top: 1.5px solid var(--cor-preto); }
+.faq-lista details { border-bottom: 1px solid var(--cor-linha); }
+.faq-lista summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 24px 0; font-weight: 700; font-size: clamp(17px, 1.4vw, 20px); line-height: 1.2; }
+.faq-lista summary::-webkit-details-marker { display: none; }
+.faq-lista summary::after { content: "+"; flex: none; width: 36px; height: 36px; border-radius: 50%; background: var(--cor-brasa); color: var(--cor-creme); display: grid; place-items: center; font-size: 22px; line-height: 1; transition: transform .25s ease; }
+.faq-lista details[open] summary::after { transform: rotate(45deg); }
+.faq-lista details p { margin: 0 0 24px; max-width: 60ch; color: var(--cor-texto-suave); }
+
+@media (max-width: 1080px) {
+  .lista-diferenciais { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .faq-grade { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 760px) {
+  .lista-diferenciais { grid-template-columns: minmax(0, 1fr); }
+  .galeria-faixa { gap: 10px; }
+  .galeria-faixa li { flex-basis: 72vw; }
+  .faq .titulo-secao { text-align: center; }
+  .hero-cta { display: none; }
+}
+</style>
+
+<script>
+  import { initPage } from '../scripts/aniversarios';
+  initPage();
+</script>
