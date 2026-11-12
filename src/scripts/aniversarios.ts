@@ -1,9 +1,11 @@
+import { initEmpresaToggle } from './empresa-toggle';
 import flatpickr from 'flatpickr';
 import { Portuguese } from 'flatpickr/dist/l10n/pt.js';
 import { initForms } from './forms';
 
 export function initPage() {
   initForms();
+  initEmpresaToggle();
 
   // Flatpickr nos campos de data
   document.querySelectorAll<HTMLInputElement>('[data-datepicker]').forEach((el) => {

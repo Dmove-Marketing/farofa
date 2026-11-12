@@ -2,10 +2,10 @@
 import 'flatpickr/dist/flatpickr.min.css';
 import Base from '../layouts/Base.astro';
 import '../styles/fontes-google.css';
-import { getPreset, funnelPreset } from '../scripts/form-presets';
+import { getPreset, funnelPreset, comEmpresaCondicional } from '../scripts/form-presets';
 import config from '../../config.json';
 
-const fields   = getPreset(funnelPreset['aniversarios']).map((f) =>
+const fields   = comEmpresaCondicional(getPreset(funnelPreset['aniversarios'])).map((f) =>
   f.name === 'email' ? { ...f, placeholder: 'voce@email.com.br' } : f
 );
 const webhook  = config.forms['lead-form'].webhooks[0];
@@ -146,7 +146,7 @@ const faqLd = {
               <input name="website" type="text" style="display:none" tabindex="-1" autocomplete="off" />
               <div class="campos" id="form-topo-campos">
                 {fields.map((f) => (
-                  <div class:list={['campo', f.full ? 'campo-full' : '']}>
+                  <div class:list={['campo', f.full ? 'campo-full' : '']} {...(f.condicional ? { 'data-empresa-campo': '', style: 'display:none' } : {})}>
                     <label for={`form-field-${f.name}`}>
                       {f.label}{f.hint && <> <span class="campo-hint">({f.hint})</span></>}
                     </label>
@@ -155,7 +155,7 @@ const faqLd = {
                         <select
                           id={`form-field-${f.name}`}
                           name={f.name}
-                          required={f.required || undefined}
+                          required={(f.required && !f.condicional) || undefined}
                         >
                           {f.options?.map((opt) => (
                             <option value={opt.value} disabled={opt.disabled || undefined} selected={opt.selected || undefined}>
@@ -178,7 +178,7 @@ const faqLd = {
                         name={f.name}
                         type={f.type}
                         placeholder={f.placeholder}
-                        required={f.required || undefined}
+                        required={(f.required && !f.condicional) || undefined}
                         data-datepicker={f.datepicker ? '' : undefined}
                         autocomplete={autoMap[f.name] || (f.datepicker ? 'off' : undefined)}
                         inputmode={f.type === 'tel' ? 'tel' : f.type === 'number' ? 'numeric' : undefined}
@@ -358,7 +358,7 @@ const faqLd = {
             <input name="website" type="text" style="display:none" tabindex="-1" autocomplete="off" />
             <div class="campos" id="form-contato-campos">
               {fields.map((f) => (
-                <div class:list={['campo', f.full ? 'campo-full' : '']}>
+                <div class:list={['campo', f.full ? 'campo-full' : '']} {...(f.condicional ? { 'data-empresa-campo': '', style: 'display:none' } : {})}>
                   <label for={`form-field-c-${f.name}`}>
                     {f.label}{f.hint && <> <span class="campo-hint">({f.hint})</span></>}
                   </label>
@@ -367,7 +367,7 @@ const faqLd = {
                       <select
                         id={`form-field-c-${f.name}`}
                         name={f.name}
-                        required={f.required || undefined}
+                        required={(f.required && !f.condicional) || undefined}
                       >
                         {f.options?.map((opt) => (
                           <option value={opt.value} disabled={opt.disabled || undefined} selected={opt.selected || undefined}>
@@ -390,7 +390,7 @@ const faqLd = {
                       name={f.name}
                       type={f.type}
                       placeholder={f.placeholder}
-                      required={f.required || undefined}
+                      required={(f.required && !f.condicional) || undefined}
                       data-datepicker={f.datepicker ? '' : undefined}
                       autocomplete={autoMap[f.name] || (f.datepicker ? 'off' : undefined)}
                       inputmode={f.type === 'tel' ? 'tel' : f.type === 'number' ? 'numeric' : undefined}

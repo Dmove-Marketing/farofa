@@ -354,35 +354,6 @@ a { color: inherit; text-decoration: none; }
   import { initPage } from '../scripts/eventos-corporativos';
   initPage();
 
-  const TIPOS_CORPORATIVOS = new Set([
-    'Confraternizacao corporativa',
-    'Corporativo',
-    'Feiras e Exposicoes',
-    'Masterclass e Palestras',
-    'Mentorias e Treinamentos',
-    'Offsite corporativo',
-    'Reunioes de Networking',
-    'Workshops, Conferencias e Seminarios',
-  ]);
-
-  const bioForm = document.querySelector<HTMLFormElement>('[data-form-id="lead-form-bio"]');
-  if (bioForm) {
-    const tipoSelect   = bioForm.querySelector<HTMLSelectElement>('[name="tipo_evento"]');
-    const empresaCampo = bioForm.querySelector<HTMLElement>('[data-empresa-campo]');
-    const empresaInput = empresaCampo?.querySelector<HTMLInputElement>('input');
-
-    const toggleEmpresa = (valor: string) => {
-      const mostrar = TIPOS_CORPORATIVOS.has(valor);
-      if (empresaCampo) empresaCampo.style.display = mostrar ? 'flex' : 'none';
-      if (empresaInput) {
-        empresaInput.required = mostrar;
-        if (!mostrar) empresaInput.value = '';
-      }
-    };
-
-    if (tipoSelect) {
-      toggleEmpresa(tipoSelect.value);
-      tipoSelect.addEventListener('change', () => toggleEmpresa(tipoSelect.value));
-    }
-  }
+  import { initEmpresaToggle } from '../scripts/empresa-toggle';
+  initEmpresaToggle();
 </script>

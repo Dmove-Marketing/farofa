@@ -27,6 +27,8 @@ export interface PresetField {
   datepicker?: boolean;
   /** texto de apoio no label, ex.: "não obrigatório" */
   hint?: string;
+  /** campo oculto até o tipo de evento ser corporativo */
+  condicional?: boolean;
   options?: PresetFieldOption[];
 }
 
@@ -84,10 +86,17 @@ export const funnelPreset: Record<string, keyof typeof formPresets> = {
   casamentos: 'social',
   debutantes: 'social',
   aniversarios: 'social',
+  'casa-fechada': 'social',
   formaturas: 'social',
   'eventos-corporativos': 'corporativo',
   'eventos-corporativos-confraternizacoes': 'corporativo',
 };
+
+// Funis sociais: adiciona "empresa" oculto, exibido só se o tipo de evento for corporativo.
+export function comEmpresaCondicional(fields: PresetField[]): PresetField[] {
+  if (fields.some((f) => f.name === 'empresa')) return fields;
+  return [{ ...empresa, condicional: true }, ...fields];
+}
 
 export function getPreset(name?: string): PresetField[] {
   const key = (name as keyof typeof formPresets) || 'social';
